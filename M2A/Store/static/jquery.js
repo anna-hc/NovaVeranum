@@ -343,19 +343,19 @@ $(function(){
         });
 
         if($.trim($('.txtJNombre').val())==""){
-            $('.txtJNombre')[0].setCustomValidity('Ingrese un titulo.');
+            $('.txtJNombre')[0].setCustomValidity('Ingrese un nombre.');
             $('.txtJNombre').focus();
            }
         else if($.trim($('.txtJNombre').val()).length>=20){
-            $('.txtJNombre')[0].setCustomValidity('El título no puede tener más de 20 carácteres');
+            $('.txtJNombre')[0].setCustomValidity('El nombre no puede tener más de 20 carácteres');
             $('.txtJNombre').focus();
         }
-        else if($.trim($('.txtJDev').val())==""){
-            $('.txtJDev')[0].setCustomValidity('Ingrese un desarrollador.');
-            $('.txtJDev').focus();
+        else if($.trim($('.txtJPlataforma').val())==""){
+            $('.txtJPlataforma')[0].setCustomValidity('Ingrese tipo de habitación.');
+            $('.txtJPlataforma').focus();
         }
         else if($.trim($('.txtJDesc').val())==""){
-            $('.txtJDesc')[0].setCustomValidity('Ingrese una descripción del juego.');
+            $('.txtJDesc')[0].setCustomValidity('Ingrese una descripción de la habitación.');
             $('.txtJDesc').focus();
         }
         else if($.trim($('.txtJDesc').val()).length>=520){
@@ -367,7 +367,7 @@ $(function(){
           //  $('.txtJImg').focus();
       //  }
         else if($.trim($('.txtJPrecio').val())==""){
-            $('.txtJPrecio')[0].setCustomValidity('Ingrese un precio unitario.');
+            $('.txtJPrecio')[0].setCustomValidity('Ingrese un precio por noche.');
             $('.txtJPrecio').focus();
         }
         else if($.trim($('.txtJPrecio').val())<=0){
@@ -375,7 +375,7 @@ $(function(){
             $('.txtJPrecio').focus();
         }
         else if($.trim($('.txtJStock').val())==""){
-            $('.txtJStock')[0].setCustomValidity('Debe ingresar stock disponible.');
+            $('.txtJStock')[0].setCustomValidity('Debe ingresar la capacidad.');
             $('.txtJStock').focus();
         }
        // else if($.trim($('.txtJKeys').val())==""){
@@ -383,18 +383,18 @@ $(function(){
           //  $('.txtJKeys').focus();
             
         //}
-        else if($.trim($('.txtLink').val())==""){
-            $('.txtLink')[0].setCustomValidity('Debe ingresar el link de youtube.');
-            $('.txtLink').focus();
+        //else if($.trim($('.txtLink').val())==""){
+           // $('.txtLink')[0].setCustomValidity('Debe ingresar el link de youtube.');
+           // $('.txtLink').focus();
             
-        }
+       // }
         //else if($.trim($('.txtLink').val()).length!=43){
           //  $('.txtLink')[0].setCustomValidity('Link inválido');
             //$('.txtLink').focus();
         //}
-        else if($.trim($('.txtJPlataforma').val())==""){
-            $('.txtJPlataforma')[0].setCustomValidity('Ingrese plataforma.');
-            $('.txtJPlataforma').focus();
+        else if($.trim($('.txtJDev').val())==""){
+            $('.txtJDev')[0].setCustomValidity('Ingrese servicios.');
+            $('.txtJDev').focus();
         }
         else{
             console.log("formulario correcto")

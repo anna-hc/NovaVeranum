@@ -221,7 +221,7 @@ def subirJuego(request):
         idJuego       = request.POST['txtId']
         nombre        = request.POST['nombre']
         descripcion   = request.POST['descripcion']
-        ytVidId       = request.POST['link']
+        ytVidId       = 0
         precio        = request.POST['precio']
         stock         = request.POST['stock']
 
@@ -239,7 +239,7 @@ def subirJuego(request):
                     categoria = categoriaJuego.objects.get(idCategoria=request.POST['categoriaJuego']),
                     descripcion = descripcion,
                     imagen = request.FILES['imagen'],
-                    ytVidId = ytVidId,
+                    ytVidId = None,
                     precio = precio,
                     stock = stock,
                     clave = request.FILES['archivo'],

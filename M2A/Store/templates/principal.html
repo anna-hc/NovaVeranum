@@ -1,5 +1,5 @@
 {% extends "plantilla_base.html"  %}
-{% block titulo %} Bienvenidos a M2A  {% endblock %}
+{% block titulo %} Bienvenidos a Veranum  {% endblock %}
 {% block contenido %}
 <div class="container pt-5"> 
   <div id="carouselExampleCaptions" class="carousel slide mt-5 d-flex justify-content-center align-items-center" data-bs-ride="carousel">
@@ -35,9 +35,9 @@
   </div>
  
 </div>
-<h1 id="tituloportada" class="tituloportada pt-4">Las mejores tendencias de anime y videojuegos, ahora más cerca que nunca.</h1>
+<h1 id="tituloportada" class="tituloportada pt-4">Bienvenido a un mundo de confort y elegancia.</h1>
 <div class="container pt-5">
-  <h1 class="justify-content-center" style="text-align: center; font-weight: bold;">Lo más vendido:</h1>
+  <h1 class="justify-content-center" style="text-align: center; font-weight: bold;">Lo más popular:</h1>
 </div>
 
 <div class="container pt-5 pb-4">
@@ -51,15 +51,15 @@
 
         <div class="card-body">
           <h5 class="card-title" id="titulojuego">{{juego.nombre}}</h5>
-          <h4 class="card-title" style="font-size: small;" id="desarrollador">Desarrollador: {{juego.desarrollador.nombre}}</h4>
+          <h4 class="card-title" style="font-size: small;" id="desarrollador">Servicios: {{juego.desarrollador.nombre}}</h4>
           <p class="card-text desc" style="margin-bottom: 5px;">{{juego.descripcion}}</p>
           <div class="row">
             <div class="col-6">
-              <p class="pt-0" style="position: absolute; bottom:  40px;" id="producto">Clave de {{ juego.tipoClave.nombre }}</p>
+              <p class="pt-0" style="position: absolute; bottom:  40px;" id="producto">{{ juego.tipoClave.nombre }}</p>
               <p style="color: success; font-size: 30px; margin: 0cm; position: absolute; bottom: 10px;">${{juego.precio}} </p>
             </div>
             <div class="col-4 offset-2" style=" padding-left: 15px;">
-              <p class="pt-0" style="margin:0cm; position: absolute; bottom: 57px;" id="stock"> Stock: {{juego.stock}} </p>
+              <p class="pt-0" style="margin:0cm; position: absolute; bottom: 57px;" id="stock"> Capacidad de {{juego.stock}} personas.</p>
               <a class="btn-carro btn btn-primary btn-lg" href="{% url 'agregarJuegoCarro' idJuego=juego.idJuego%}" role="button" style="position: absolute; bottom: 10px; width: 20%;" id="btn-carro">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
