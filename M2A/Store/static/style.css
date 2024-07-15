@@ -1,0 +1,238 @@
+body{
+    background-color: #0C0C19;
+}
+
+h1{
+    color: whitesmoke;
+}
+
+
+#tituloportada{
+    text-align: center;
+    font-size: 25px;
+}
+.navbar{
+    background-color: #05030d;
+}
+.h5portada{
+    text-shadow: 2px 2px #212428;
+}
+.descripcionportada{
+    text-shadow: 2px 2px #212428;
+}
+
+.carouselExampleCaptions{
+    padding-top:  100px;
+}
+
+.navbar-brand{
+    padding-left: 2rem;
+    color: whitesmoke;
+    font-size: 30px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.navbar-toggler-icon{
+    color: #212144;
+}
+
+.carousel-item:before{
+    content: "";
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1));
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+}
+.carousel-item:hover{
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+.offcanvas-body{
+    background-color: #05030d;
+}
+
+.offcanvas-header{
+    background-color: #05030d;
+}
+
+#offcanvasNavbarLabel{
+    color: #ffffff;
+}
+
+#btn-busqueda{
+    background-color: #11ced0;
+    color: white;
+    border: none;
+}
+
+#btn-busqueda:hover{
+    background-color: #0c9b9d;
+    color: white;
+    border: none;
+}
+
+.card{
+    background-color: #212144;
+    color: whitesmoke;
+}
+
+#desarrollador{
+    color: #485aff;
+}
+#producto{
+    color: #b0bdf8;
+}
+#stock{
+    color: #b0bdf8;
+}
+#titulojuego{
+    font-weight: bold;
+}
+
+#btn-carro{
+    background-color: #4463f2;
+    color: white;
+    border: none;
+}
+
+#btn-carro:active{
+    background-color: #11ced0;
+    color: white;
+    border: none;
+    
+}
+#btn-carro:hover{
+    background-color: #11ced0 ;
+}
+
+#carro{
+    background-color: #4463f2;
+    color: white;
+    border: none;
+}
+
+#carro:hover{
+    background-color: #11ced0;
+    color: white;
+    border: none;
+}
+
+#carro:active{
+    background-color: #263586;
+    color: white;
+    border: none;
+}
+
+.dropdown-item{
+    color: white;
+}
+.dropdown-menu{
+    background-color: #0c0c19;
+    color: white;
+}
+.dropdown-menu:hover{
+    color: #212144;
+}
+
+.dropdown-item:hover{
+    background-color: #212144;
+    color: white;
+}
+
+.dropdown-item{
+    color: white;
+}
+.edad{
+    font-weight: bold;
+}
+
+#busqueda{
+    background-color: #212144;
+    border-color: #0c0c19;
+    color: #ffffff;
+}
+#busqueda::placeholder{
+    background-color: #212144;
+    border-color: #0c0c19;
+    color: #b0bdf8;
+}
+
+.btnConversion{
+    background-color: #4463f2;
+}
+.btnConversion:hover{
+    background-color: #11ced0;
+}
+
+.form-control::placeholder{
+    color: #b0bdf8
+}
+
+.btn-aceptar{
+    background-color: #4463f2;
+    color: white;
+}
+.btn-aceptar:hover{
+    background-color: #11ced0;
+    color: white;
+}
+
+.txtDesc::placeholder{
+    color: #b0bdf8
+}
+#rut::placeholder{
+    color: #b0bdf8
+}
+#nombre::placeholder{
+    color: #b0bdf8
+}
+#apellido::placeholder{
+    color: #b0bdf8
+}
+#correo::placeholder{
+    color: #b0bdf8
+}
+#telefono::placeholder{
+    color: #b0bdf8
+}
+#titulo::placeholder{
+    color: #b0bdf8
+}
+#descripcion::placeholder{
+    color: #b0bdf8
+}
+.card-img-top:hover{
+    box-shadow: 0 2px 4px #4463f2; /* probé con varios pero este no se ve tan invasivo */
+    transform: scale(1.05); 
+    transition: transform 0.3s ease;
+  }
+
+.btnVistaPreviaJ{
+    background-color: #11ced0;
+    color: #14142b;
+    font-weight: bold;
+    border: none;
+}
+
+.btnVistaPreviaS{
+    background-color: #11ced0;
+    color: #14142b;
+    font-weight: bold;
+    border: none;
+}
+.img-clickable:hover{
+    transform: scale(1.05); 
+    transition: transform 0.3s ease;
+}
+
+.footer {
+    width: 100%;
+    background-color: #05030d;
+  }
+
+.table{
+    border-radius: 6px;
+    overflow:hidden
+}

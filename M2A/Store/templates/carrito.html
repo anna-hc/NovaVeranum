@@ -1,0 +1,86 @@
+{% extends "plantilla_base.html"  %}
+{% block titulo %} Carrito de compras  {% endblock %}
+{% block contenido %}
+      <div class="container pt-5 mt-5">
+        {%if error%}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{error}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+        <div class="row">
+          <div class="col-lg-8">
+            <h2 style="color: #4ac8f0; font-weight: bold">Carrito de Compras</h2>
+  {% comment %} {% if user.is_authenticated %} {% endcomment %}
+            <table class="table" id="carro">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Portada</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Subtotal</th>
+                  <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for idJuego, item in listado.items %}
+                <tr class="carrito">
+                    <td>{{item.idJuego}}</td>
+                    <td><a href="{% url 'verJuego' idJuego=item.idJuego%}"><img src="{{item.imagen}}" alt="No disponible" style="max-width: 100px; max-height: 140px;"></a></td>
+                    <td>{{item.nombre}}</td>
+                    <td class="precio-carro">{{item.precio}}</td>
+                    <td>
+                      <input type="text" class="form-control cantidad" min="1" max="{{item.stock}}" value="{{item.cantidad}}">
+                    </td>
+                    <td class="subtotal"></td>
+                    <td>                
+                      <a href="{% url 'eliminarJuegoCarro' idJuego=item.idJuego%}" class="btn btn-danger eliminar">Eliminar</a>
+                    </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title" style="color: #b0bdf8;">Resumen del Pedido</h5>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Subtotal $
+                    <span id="subtotal">0</span>
+                  </li>
+                  <form action="{{response.url}}" method="post">
+                    {% csrf_token %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Total (IVA incluido) $
+                    <input type="number" name="total" id="total" class="total" value=0 readonly>
+                  </li>
+                </ul>
+                  <input type="hidden" name="token_ws" value="{{ response.token }}">
+                  <button type="submit" class="btn btn-primary btn-block mt-3" style="background-color: #11ced0;">Proceder al Pago</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+  {% comment %} {% else %}
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title" style="color: #b0bdf8; font-weight:bold">Inicie sesión o registrese</h5>
+            <h5 class="card-title" style="color: #b0bdf8;">Debe tener una cuenta para agregar productos al carro</h5>
+            <a href="{% url 'login' %}">
+              <button class="btn btn-primary btn-block mt-3" style="background-color: #11ced0;">Ir al login</button>
+            </a>
+          </div>
+        </div>
+      </div>
+  {% endif %} {% endcomment %}
+        </div>
+      </div>
+      <div class="container-fluid d-flex flex-column min-vh-100" style="padding: 0;">
+      </div>
+{% endblock %}
