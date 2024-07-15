@@ -1,0 +1,128 @@
+{% extends "plantilla_base.html"  %}
+{% block titulo %} Registro Juegos {% endblock %}
+{% block contenido %}
+
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header" style="text-align: center; font-size: 20px; background-color: #202043; color: whitesmoke; font-weight: bold;">
+                        Vista previa de la imagen
+                    </div>
+                    <div class="card-body text-center">
+                        <img id="vista-previa" src="{{juego.imagen.url}}" alt="" class="img-fluid vista-previa">
+                        <button type="button" class="btnVistaPreviaJ btn btn-primary btn-sm mt-3" style="width: 60%;">Vista previa</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <form class="card mb-5 " action="{% url 'subirJuego' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+                    <div class="card-header" style="text-align: center; font-size: 20px; background-color: #202043; color: whitesmoke; font-weight: bold;">
+                        Subir Nuevo Juego
+                    </div>
+                
+                    <div class="card-body" style="background-color: #2f2c58;">
+                      <input type="hidden" name="txtId" value="0{{juego.idJuego}}">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label" style="color: whitesmoke;">Nombre del Juego</label>
+                                <input type="text" value="{{juego.nombre}}" name="nombre" class="txtJNombre form-control" id="nombre" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el título del juego (máximo 20 carácteres)" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="desarrollador" class="form-label" style="color: whitesmoke;">Desarrollador</label>
+                              <select class="desarrollador form-select form-select-sm" value="{{juego.desarrollador}}" aria-label="Default select example" name="desarrollador" style="background-color: #14142b; border-color: #202043; color: white" required>
+                                <option selected>Seleccione desarrollador</option>
+                                {%for desarrollador in desarrolladores%}
+                                {%if juego.desarrollador.idDev == desarrollador.idDev %}
+                                <option name="idDev" value="{{desarrollador.idDev}}" selected>{{desarrollador.nombre}}</option>
+                                {%else%}
+                                <option name="idDev" value="{{desarrollador.idDev}}">{{desarrollador.nombre}}</option>
+                                {%endif%}
+                                {%endfor%}
+                              </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="categoriaJuego" class="form-label" style="color: whitesmoke;">Categoría</label>
+                            <select class="categoriaJuego form-select form-select-sm" value="{{juego.categoria}}" aria-label="Default select example" name="categoriaJuego" style="background-color: #14142b; border-color: #202043; color: white" required>
+                              <option selected>Seleccione categoría</option>
+                              {%for categoria in categorias%}
+                                {%if juego.categoria.idCategoria == categoria.idCategoria %}
+                                <option name="idCategoria" value="{{categoria.idCategoria}}" selected>{{categoria.nombre}}</option>
+                                {%else%}
+                                <option name="idCategoria" value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
+                                {%endif%}
+                                {%endfor%}
+                            </select>
+                        </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label" style="color: whitesmoke;">Descripción</label>
+                                <textarea name="descripcion" class="txtJDesc form-control" id="descripcion" rows="3" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Descripción del juego" required>{{juego.descripcion}}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                {%if juego.imagen%}
+                                <label for="imagen" class="form-label" style="color: whitesmoke;">Imagen del Juego: {{juego.imagen.url}} </label>
+                                <input type="file" name="imagen" value="{{juego.imagen}}" class="Img form-control imagen1" id="imagen" accept="image/*">
+                                {%else%}
+                                <label for="imagen" class="form-label" style="color: whitesmoke;">Imagen del Juego</label>
+                                <input type="file" name="imagen" value="{{juego.imagen}}" class="Img form-control imagen1" id="imagen" accept="image/*" required>
+                                {%endif%}
+                            </div>
+                            <div class="mb-3">
+                                {%if capturas%}
+                                <label for="captura" class="form-label" style="color: whitesmoke;">Capturas del Juego: {{urlCapturas}} </label>
+                                <input type="file" name="captura" value="{{captura.imagen}}" class="Img form-control" id="captura" accept="image/*" multiple>
+                                {%else%}
+                                <label for="captura" class="form-label" style="color: whitesmoke;">Capturas del Juego</label>
+                                <input type="file" name="captura" value="{{juego.imagen}}" class="Img form-control" id="captura" accept="image/*" required multiple>
+                                {%endif%}
+                            </div>
+                            <div class="mb-3">
+                              <label for="precio" class="form-label" style="color: whitesmoke;">Precio</label>
+                              <input type="number" name="precio" value="{{juego.precio}}" class="txtJPrecio form-control" id="precio" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el precio en CLP" required min="1">
+                          </div>
+                          <div class="mb-3">
+                            <label for="stock" class="form-label" style="color: whitesmoke;">Stock</label>
+                            <input type="number" name="stock" value="{{juego.stock}}" class="txtJStock form-control" id="stock" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el stock" required min="1">
+                        </div>
+                            <div class="mb-3">
+                                {%if juego.clave%}
+                                <label for="archivo" class="form-label" style="color: whitesmoke;">Claves: {{juego.clave.url}} </label>
+                                <input type="file" name="archivo" value="{{juego.clave}}" class="txtJKeys form-control" id="archivo" accept=".zip,.rar">
+                                {%else%}
+                                <label for="archivo" class="form-label" style="color: whitesmoke;">Claves (Encriptadas, zip o rar)</label>
+                                <input type="file" name="archivo" value="{{juego.clave}}" class="txtJKeys form-control" id="archivo" accept=".zip,.rar" required>
+                                {%endif%}
+                            </div>
+                            <div class="mb-3">
+                              <label for="link" class="form-label" style="color: whitesmoke;">Link de Youtube</label>
+                              <input type="text" value="{{juego.ytVidId}}" name="link" class="txtLink form-control" id="link" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ejemplo: https://www.youtube.com/watch?v=3T8iNYmI0-M" required>
+                          </div>
+                            <div class="mb-3">
+                              <label for="tipoClave" class="form-label" style="color: whitesmoke;">Tipo de Clave</label>
+                              <select class="txtJPlataforma form-select" name="tipoClave" value="{{juego.tipoClave}}" id="tipoClave" style="background-color: #14142b; border-color: #202043; color: white;" required>
+                                <option value="">Selecciona un tipo de clave</option>
+                                {%for tipoClave in tipoClaves%}
+                                {%if juego.tipoClave.idTipo == tipoClave.idTipo %}
+                                <option name="idTpoClave" value="{{tipoClave.idTipo}}" selected>{{tipoClave.nombre}}</option>
+                                {%else%}
+                                <option name="idTpoClave" value="{{tipoClave.idTipo}}">{{tipoClave.nombre}}</option>
+                                {%endif%}
+                                {%endfor%}
+                              </select>
+                            </div>
+                                             
+                          <div class="row pt-3">
+                            <div class="col-2 d-flex justify-content-start">
+                                <button class="btn-aceptar btn me-auto" style="font-weight: bold;" id="limpiarJuego">Limpiar</button>
+                            </div>
+                            <div class="col-2 offset-8 d-flex justify-content-end">
+                            <button type="submit" name="enviarJuego" class="btn-aceptar btn ms-auto" style="font-weight: bold; align-items: end;" id="enviarJuego">Agregar</button>
+                            </div>
+                          </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

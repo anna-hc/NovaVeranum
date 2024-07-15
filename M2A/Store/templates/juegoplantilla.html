@@ -1,0 +1,61 @@
+{% extends "plantilla_base.html"  %}
+{% block titulo %} {{ juego.nombre }} en M2A  {% endblock %}
+{% block contenido %}
+
+<div class="container pt-5">
+    <div class="row mt-5 ">
+      <div class="col-12 col-lg-7 justify-content-center align-items-center d-flex">
+        <iframe width="854" height="420" src="https://www.youtube.com/embed/{{ juego.ytVidId }}?autoplay=1&mute=1" title="Game trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="col justify-content-end mt-4">
+        <h4 style="font-size:40px; text-align: center; color: #b0bdf8; font-weight: bold">{{ juego.nombre }}</h4>
+        <h4 style="font-size: larger; text-align: center; color: #485aff">Desarrollador: {{ juego.desarrollador.nombre }}</h4>
+        <p style="color: white; padding-top: 25px;">{{ juego.descripcion }}</p>
+        <p style="color: #b0bdf8">Categoría: {{ juego.categoria.nombre }}</p>
+        <div class="row align-items-center d-flex">
+          <div class="col-4 ">
+            <p class="pt-1" id="producto" style="text-align: start; margin-bottom: 10px;">Clave de {{ juego.tipoClave.nombre }}</p>
+          </div>
+          <div class="offset-4 col-4">
+            <p class="pt-1" id="stock" style="text-align: center; margin-bottom: 10px;"> Stock: {{ juego.stock }}</p>
+          </div>
+          <div class="col-6 d-flex align-items-center">
+            <div class="spinner-border" role="status" id="spinner-precio" style="color: #11ced0; width: 25px; height: 25px;">
+              <span class="sr-only"></span>
+            </div>
+            <p type="text" style="color: success; font-size: 25px; color: #11ced0; position:relative; margin-bottom: 5px; text-align: start;" class="precioJuego">${{ juego.precio }} CLP</p>
+            <p type="text" style="color: success; font-size: 25px; color: #11ced0; position:relative; margin-bottom: 5px; text-align: start;" class="precioJuegoConvertido"></p>
+          </div>
+          <div class="col-6">
+            <p style="margin-bottom: 0; font-size: 18px; color: #11ced0; font-weight: 500; text-align: end; margin-bottom: 5px;">Añadir al carrito:</p>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" style="width: 60%;">Convertir a dólares</button>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
+            <a class="btn-carro btn btn-primary btn mt-1" href="{% url 'agregarJuegoCarro' idJuego=juego.idJuego%}" role="button" id="btn-carro" style="width: 80px; margin-right: 14%;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <h1 class="mt-5" style="color: #b0bdf8; text-align: center; font-weight: bold;">Capturas:</h1>
+
+    <div class="row mt-5">
+      {%for captura in capturas%}
+      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <img src="{{ captura.imagen.url }}" 
+        class="img-fluid w-100 shadow-1-strong rounded mb-4 hover-overlay img-clickable" 
+        alt="Captura" 
+        data-fancybox="galeria1">
+      </div> 
+      {%endfor%}
+    </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
