@@ -14,6 +14,14 @@ $(function(){
     });
 
     $(document).ready(function() {
+        min = new Date().toLocaleDateString('fr-ca')
+        console.log(min);
+        $('.fechaReserva').attr({
+            "min" : min
+         })
+    });
+
+    $(document).ready(function() {
         $('.descripcionportada').each(function(){
             if ($(this).text().length > 100){
                 var desc = $(this).text();

@@ -83,13 +83,13 @@ nav {
 }
 
 #desarrollador{
-    color: #485aff;
+    color: #E8BA74;
 }
 #producto{
-    color: #b0bdf8;
+    color: #88BFA0;
 }
 #stock{
-    color: #b0bdf8;
+    color: #88BFA0;
 }
 #titulojuego{
     font-weight: bold;
@@ -163,11 +163,21 @@ nav {
     color: rgb(117, 113, 101)
 }
 
-.btnConversion{
-    background-color: #4463f2;
+#btn_conversion{
+    background-color: #e6dfd6;
+    border-color: #E6DFD6;
+    color: #171717;
 }
-.btnConversion:hover{
-    background-color: #11ced0;
+#btn_conversion:hover{
+    background-color: #b3ada6;
+    border-color: #b3ada6;
+    color: #171717;
+}
+
+#btn_conversion:active{
+    background-color: #b3ada6;
+    border-color: #b3ada6;
+    color: #171717;
 }
 
 .form-control::placeholder{
@@ -208,7 +218,7 @@ nav {
     color: #b0bdf8
 }
 .card-img-top:hover{
-    box-shadow: 0 2px 4px #4463f2; /* probé con varios pero este no se ve tan invasivo */
+    box-shadow: 0 2px 4px #E8BA74; /* probé con varios pero este no se ve tan invasivo */
     transform: scale(1.05); 
     transition: transform 0.3s ease;
   }
@@ -238,5 +248,5 @@ nav {
 
 .table{
     border-radius: 6px;
-    overflow:hidden
+    overflow:hidden;
 }
