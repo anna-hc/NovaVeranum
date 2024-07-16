@@ -183,7 +183,8 @@ def eliminarHabCarro(request, idHab):
     try:
         carritoSesion = request.session.get('carrito', {})
         if str(idHab) in carritoSesion:
-            del carritoSesion[str(idHab)]
+            if carritoSesion[str(idHab)]['cantidad'] >= 1:
+                del carritoSesion[str(idHab)]
         request.session['carrito'] = carritoSesion
         return redirect(verCarro)
         #usuario = request.user

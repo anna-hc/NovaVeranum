@@ -82,7 +82,7 @@ nav {
     color: whitesmoke;
 }
 
-#desarrollador{
+#servicio{
     color: #E8BA74;
 }
 #producto{
@@ -116,7 +116,10 @@ nav {
     color: white;
     border: none;
 }
-
+#btnLogin:hover{
+    background-color: #E2A850;
+    color: #0a0a0a;
+}
 #carro:hover{
     background-color: #E2A850;
     color: white;
@@ -181,41 +184,41 @@ nav {
 }
 
 .form-control::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 
 .btn-aceptar{
-    background-color: #4463f2;
-    color: white;
+    background-color: #E8BA74;
+    color: #171717;
 }
 .btn-aceptar:hover{
-    background-color: #11ced0;
-    color: white;
+    background-color: #E2A850;
+    color: #171717;
 }
 
 .txtDesc::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #rut::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #nombre::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #apellido::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #correo::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #telefono::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #titulo::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 #descripcion::placeholder{
-    color: #b0bdf8
+    color: #aed3be
 }
 .card-img-top:hover{
     box-shadow: 0 2px 4px #E8BA74; /* probé con varios pero este no se ve tan invasivo */
@@ -224,14 +227,14 @@ nav {
   }
 
 .btnVistaPreviaJ{
-    background-color: #11ced0;
+    background-color: #E8BA74;
     color: #14142b;
     font-weight: bold;
     border: none;
 }
 
 .btnVistaPreviaS{
-    background-color: #11ced0;
+    background-color: #E8BA74;
     color: #14142b;
     font-weight: bold;
     border: none;
