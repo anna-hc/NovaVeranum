@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from .forms import habForm
 from .forms import customLoginForm
 from django.contrib.auth.views import LoginView,LogoutView
-import re
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 
@@ -75,28 +75,43 @@ def plantilla(request):
 
 
 def agregarHabCarro(request, idHab):
+    error = 0
     context = {}
-    try:
-        usuario = request.user
-        item = Habitacion.objects.get(idHab = idHab)
-        carritoSesion = request.session.get('carrito', {})
-        if str(idHab) in carritoSesion:
-            carritoSesion[str(idHab)]['cantidad'] += 1
-        else:
-            carritoSesion[str(idHab)] = {
-            'idHab': str(item.idHab),
-            'nombre' : item.nombre,
-            'precio' : str(item.precio),
-            'capacidad'  : item.capacidad,
-            'imagen' : item.imagen.url if item.imagen else '',
-            'cantidad': 1
-                }
-        request.session['carrito'] = carritoSesion
-
-        return redirect(verCarro)
-    except:
-        context['error'] = 'Error al agregar el producto'
-        return render(request, 'carrito.html', context)
+    if request.method == 'POST':
+        fecha = request.POST['fechaReserva']
+        dias = request.POST['cantidadDias']
+        try:
+            reservas = Reserva.objects.filter(habitacion=idHab)
+            inicio = datetime.datetime.strptime(str(fecha), "%Y-%m-%d")
+            fin = inicio + datetime.timedelta(days=int(dias))
+            for reserva in reservas:
+                fecha1 = datetime.datetime.strptime(str(reserva.fecha), "%Y-%m-%d")
+                for i in range(int(reserva.dias)):
+                    # print(fecha1)
+                    if inicio<= fecha1 <= fin:
+                        inicio1=datetime.datetime.strptime(str(reserva.fecha), "%Y-%m-%d")
+                        fin1 = inicio1 + datetime.timedelta(days=int(reserva.dias)-1)
+                        messages.error(request, f"La habitación estará reservada durante esa fecha ({inicio1.strftime("%d/%m/%Y")} - {fin1.strftime("%d/%m/%Y")})")
+                        return redirect('verHab', idHab=idHab)
+                    fecha1=fecha1 + datetime.timedelta(days=1)
+                else:
+                    usuario = request.user
+                    item = Habitacion.objects.get(idHab = idHab)
+                    carritoSesion = request.session.get('carrito', {})
+                    carritoSesion[str(idHab)] = {
+                    'idHab': str(item.idHab),
+                    'nombre' : item.nombre,
+                    'precio' : str(item.precio),
+                    'capacidad'  : item.capacidad,
+                    'imagen' : item.imagen.url if item.imagen else '',
+                    'cantidad': dias,
+                    'fecha' : fecha
+                    }
+                    request.session['carrito'] = carritoSesion
+                    return redirect(verCarro)
+        except:
+            context['error'] = 'Error al agregar el producto'
+            return render(request, 'carrito.html', context)
 
 
 def verCarro(request):
@@ -176,12 +191,7 @@ def eliminarHabCarro(request, idHab):
     try:
         carritoSesion = request.session.get('carrito', {})
         if str(idHab) in carritoSesion:
-            if carritoSesion[str(idHab)]['cantidad'] > 1:
-                print("Cantidad superior a uno (llego aquí)")
-                del carritoSesion[str(idHab)]
-                print("Intento eliminarlo")
-            else:
-                # si solo hay uno se elimina.
+            if carritoSesion[str(idHab)]['cantidad'] >= 1:
                 del carritoSesion[str(idHab)]
         request.session['carrito'] = carritoSesion
         return redirect(verCarro)
@@ -363,10 +373,10 @@ def subirReserva(request):
 
 @login_required
 def modificarReserva(request, idReserva):
-    reservas = Reserva.objects.get(idReserva = idReserva)
+    reserva = Reserva.objects.get(idReserva = idReserva)
     habitaciones = Habitacion.objects.all()
     context = {
-    'reservas': reservas,
+    'reserva': reserva,
     'habitaciones': habitaciones,
     }
     return render(request, 'registroReservas.html', context)

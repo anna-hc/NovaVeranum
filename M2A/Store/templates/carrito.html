@@ -19,6 +19,7 @@
                   <th scope="col">Portada</th>
                   <th scope="col">Habitación</th>
                   <th scope="col">Precio por noche</th>
+                  <th scope="col">Fecha</th>
                   <th scope="col">Días reserva</th>
                   <th scope="col">Subtotal</th>
                   <th scope="col">Acción</th>
@@ -31,8 +32,9 @@
                     <td><a href="{% url 'verHab' idHab=item.idHab%}"><img src="{{item.imagen}}" alt="No disponible" style="max-width: 100px; max-height: 140px;"></a></td>
                     <td>{{item.nombre}}</td>
                     <td class="precio-carro">{{item.precio}}</td>
+                    <td class="fecha">{{item.fecha}}</td>
                     <td>
-                      <input type="text" class="form-control cantidad" min="1" max="{{item.capacidad}}" value="{{item.cantidad}}">
+                      <input type="text" class="form-control cantidad" min="1" max="{{item.capacidad}}" value="{{item.cantidad}}" readonly>
                     </td>
                     <td class="subtotal"></td>
                     <td>                
