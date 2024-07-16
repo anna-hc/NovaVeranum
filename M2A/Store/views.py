@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Juego, Carrito, tipoClave, Serie, imagenSerie,categoriaSerie, imgJuegos, Usuario, Region, nivelEducacional, desarrollador, categoriaJuego
+from .models import Habitacion, Carrito, tipoHab, Serie, imagenSerie,categoriaSerie, imgHab, Usuario, Region, nivelEducacional, servicio, dispHab
 from M2A.settings import MEDIA_URL
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from .forms import juegoForm
+from .forms import habForm
 from .forms import customLoginForm
 from django.contrib.auth.views import LoginView,LogoutView
 import re
@@ -26,9 +26,6 @@ def carrito(request):
     return render(request, 'carrito.html', carritoSesion)
 # Create your views here.
 
-def juego(request):
-    return render(request, 'juegoplantilla copy.html', {})
-
 def registroUsuarios(request):
     regiones = Region.objects.all()
     nivelesEducacionales = nivelEducacional.objects.all()
@@ -39,16 +36,16 @@ def registroUsuarios(request):
     return render(request, 'registroUsuarios.html', context)
 
 @login_required
-def registroJuegos(request):
-    tipoClaves = tipoClave.objects.all()
-    desarrolladores = desarrollador.objects.all()
-    categorias = categoriaJuego.objects.all()
+def registroHab(request):
+    tipoHabs = tipoHab.objects.all()
+    servicios = servicio.objects.all()
+    disponibilidad = dispHab.objects.all()
     context = {
-    'tipoClaves': tipoClaves,
-    'desarrolladores': desarrolladores,
-    'categorias': categorias
+    'tipoHabs': tipoHabs,
+    'servicios': servicios,
+    'disponibilidad': disponibilidad
     }
-    return render(request, 'registroJuegos.html', context)
+    return render(request, 'registroHab.html', context)
 
 @login_required
 def registroSeries(request):
@@ -59,15 +56,15 @@ def registroSeries(request):
     }
     return render(request, 'registroSeries.html', context)
 
-def verJuego(request, idJuego):
-    juego = Juego.objects.get(idJuego = idJuego)
-    capturas = imgJuegos.objects.filter(idJuego=juego)
-    return render(request, 'juegoplantilla.html', {'juego': juego, 'capturas': capturas})
+def verHab(request, idHab):
+    habitacion = Habitacion.objects.get(idHab = idHab)
+    capturas = imgHab.objects.filter(idHab = habitacion)
+    return render(request, 'habiplantilla.html', {'habitacion': habitacion, 'capturas': capturas})
 
-def verJuegosPrincipal(request):
-    juegos = Juego.objects.all()
+def verHabitacionesPrincipal(request):
+    habitaciones = Habitacion.objects.all()
     context = {
-    'juegos': juegos,
+    'habitaciones': habitaciones,
     'MEDIA_URL': MEDIA_URL 
     }
     return render(request, 'principal.html', context)
@@ -76,20 +73,20 @@ def plantilla(request):
     return render(request, 'plantilla_base.html', {})
 
 
-def agregarJuegoCarro(request, idJuego):
+def agregarHabCarro(request, idHab):
     context = {}
     try:
         usuario = request.user
-        item = Juego.objects.get(idJuego = idJuego)
+        item = Habitacion.objects.get(idHab = idHab)
         carritoSesion = request.session.get('carrito', {})
-        if str(idJuego) in carritoSesion:
-            carritoSesion[str(idJuego)]['cantidad'] += 1
+        if str(idHab) in carritoSesion:
+            carritoSesion[str(idHab)]['cantidad'] += 1
         else:
-            carritoSesion[str(idJuego)] = {
-            'idJuego': str(item.idJuego),
+            carritoSesion[str(idHab)] = {
+            'idHab': str(item.idHab),
             'nombre' : item.nombre,
             'precio' : str(item.precio),
-            'stock'  : item.stock,
+            'stock'  : item.capacidad,
             'imagen' : item.imagen.url if item.imagen else '',
             'cantidad': 1
                 }
@@ -165,60 +162,60 @@ def resultadoCompra(request):
     return render(request, 'resultado_compra.html')
 
 
-def eliminarJuegoCarro(request, idJuego):
+def eliminarHabCarro(request, idHab):
     context = {}
     try:
         carritoSesion = request.session.get('carrito', {})
-        if str(idJuego) in carritoSesion:
-            if carritoSesion[str(idJuego)]['cantidad'] > 1:
+        if str(idHab) in carritoSesion:
+            if carritoSesion[str(idHab)]['cantidad'] > 1:
                 print("Cantidad superior a uno (llego aquí)")
-                carritoSesion[str(idJuego)]['cantidad'] -= 1
+                carritoSesion[str(idHab)]['cantidad'] -= 1
                 print("Intento eliminarlo")
             else:
                 # si solo hay uno se elimina.
-                del carritoSesion[str(idJuego)]
+                del carritoSesion[str(idHab)]
         request.session['carrito'] = carritoSesion
         return redirect(verCarro)
         #usuario = request.user
         #listado = Carrito.objects.get(usuario = usuario)
-        #juego = listado.juegos.get(idJuego = idJuego)
-        #listado = listado.juegos
-        #listado.remove(juego)
+        #habitacion = listado.habitaciones.get(idHab = idHab)
+        #listado = listado.habitaciones
+        #listado.remove(habitacion)
         #context['exito'] = 'Producto eliminado del carrito'
     except:
-        context['error'] = 'Error al eliminar el producto'
+        context['error'] = 'Error al eliminar la reserva'
         return redirect(verCarro)
 
-# juegos:
+# habitaciones:
 @login_required
-def listadoJuegos(request):
-    juegos = Juego.objects.all()
-    tipoClaves = tipoClave.objects.all()
+def listadoHabs(request):
+    habitaciones = Habitacion.objects.all()
+    tipoHabs = tipoHab.objects.all()
     context = {
-    'juegos': juegos,
-    'tipoClaves': tipoClaves 
+    'habitaciones': habitaciones,
+    'tipoHabs': tipoHabs 
     }
-    return render(request, 'listadoJuegos.html', context)
+    return render(request, 'listadoHabs.html', context)
 
 @login_required
-def eliminarJuego(request, idJuego):
+def eliminarHab(request, idHab):
     context = {}
     try:
-        juego = Juego.objects.get(idJuego = idJuego)
-        juego.delete()
-        context['exito'] = 'Juego eliminado con éxito'
+        habitacion = Habitacion.objects.get(idHab = idHab)
+        habitacion.delete()
+        context['exito'] = 'Habitación eliminada con éxito'
     except:
-        context['error'] = 'Error al eliminar el juego'
+        context['error'] = 'Error al eliminar la habitacion'
     
-    juegos = Juego.objects.all()
-    context['juegos'] = juegos
-    return render(request, 'listadoJuegos.html', context)
+    habitaciones = Habitacion.objects.all()
+    context['habitaciones'] = habitaciones
+    return render(request, 'listadoHabs.html', context)
 
 @login_required
-def subirJuego(request):
-    context = {'form': juegoForm()}
+def subirHab(request):
+    context = {'form': habForm()}
     if request.method == 'POST':
-        idJuego       = request.POST['txtId']
+        idHab       = request.POST['txtId']
         nombre        = request.POST['nombre']
         descripcion   = request.POST['descripcion']
         ytVidId       = 0
@@ -228,77 +225,77 @@ def subirJuego(request):
         # buscar youtube id
         #m =  re.search(r"([\d\w-_]{11})", ytVidId)
         #ytVidId = m.group()
-        str(idJuego)
-        if 'enviarJuego' in request.POST:
-            if idJuego == "0":
-                 juego1= Juego.objects.create(
+        str(idHab)
+        if 'enviarHab' in request.POST:
+            if idHab == "0":
+                 hab = Habitacion.objects.create(
                     nombre = nombre,
-                    desarrollador = desarrollador.objects.get(idDev=request.POST['desarrollador']),
-                    categoria = categoriaJuego.objects.get(idCategoria=request.POST['categoriaJuego']),
+                    servicio = servicio.objects.get(idDev=request.POST['servicio']),
+                    categoria = dispHab.objects.get(idCategoria=request.POST['dispHab']),
                     descripcion = descripcion,
                     imagen = request.FILES['imagen'],
                     ytVidId = None,
                     precio = precio,
                     stock = stock,
                     clave = request.FILES['archivo'],
-                    tipoClave = tipoClave.objects.get(idTipo=request.POST['tipoClave'])
+                    tipoHab = tipoHab.objects.get(idTipo=request.POST['tipoHab'])
                     )
                  if request.FILES.getlist('captura'):
                     capturas = request.FILES.getlist('captura')
                     for imagen in capturas:
-                        imgJuegos.objects.create(
-                            idJuego = juego1,
+                        imgHab.objects.create(
+                            idHab = hab ,
                             imagen = imagen
                         )
             else:
-                juego = Juego.objects.get(idJuego = request.POST['txtId'])
-                juego.nombre = nombre
-                juego.desarrollador = desarrollador.objects.get(idDev=request.POST['desarrollador'])
-                juego.categoria = categoriaJuego.objects.get(idCategoria=request.POST['categoriaJuego'])
-                juego.descripcion = descripcion
-                juego.ytVidId = ytVidId
-                juego.precio = precio
-                juego.stock = stock
-                juego.tipoClave = tipoClave.objects.get(idTipo=request.POST['tipoClave'])
+                habitacion = Habitacion.objects.get(idHab = request.POST['txtId'])
+                habitacion.nombre = nombre
+                habitacion.servicio = servicio.objects.get(idDev=request.POST['servicio'])
+                habitacion.dispHab = dispHab.objects.get(idCategoria=request.POST['dispHab'])
+                habitacion.descripcion = descripcion
+                habitacion.ytVidId = ytVidId
+                habitacion.precio = precio
+                habitacion.capacidad = stock
+                habitacion.tipoHab = tipoHab.objects.get(idTipo=request.POST['tipoHab'])
                 if 'imagen' in request.FILES:
-                    juego.imagen = request.FILES['imagen']
+                    habitacion.imagen = request.FILES['imagen']
                 if 'archivo' in request.FILES:
-                    juego.clave = request.FILES['archivo']
-                juego.save()
+                    habitacion.clave = request.FILES['archivo']
+                habitacion.save()
                 if request.FILES.getlist('captura'):
                     capturas = request.FILES.getlist('captura')
-                    capturas_old = imgJuegos.objects.filter(idJuego=juego)
+                    capturas_old = imgHab.objects.filter(idHab=habitacion)
                     for old in capturas_old:
                         old.delete()
                     for imagen in capturas:
-                        imgJuegos.objects.create(
-                            idJuego = juego,
+                        imgHab.objects.create(
+                            idHab = habitacion,
                             imagen = imagen
                         )
                 
-    #context['juegos'] = Juego.objects.all()
-    #return render(request, 'listadoJuegos.html', context)
-    return redirect(listadoJuegos)
+    #context['habitaciones'] = Habitación.objects.all()
+    #return render(request, 'listadoHabs.html', context)
+    return redirect(listadoHabs)
 
 @login_required
-def modificarJuego(request, idJuego):
-    juego = Juego.objects.get(idJuego = idJuego)
-    tipoClaves = tipoClave.objects.all()
-    capturas = imgJuegos.objects.filter(idJuego=juego)
-    desarrolladores = desarrollador.objects.all()
-    categorias = categoriaJuego.objects.all()
+def modificarHab(request, idHab):
+    habitacion = Habitacion.objects.get(idHab = idHab)
+    tipoHabs = tipoHab.objects.all()
+    capturas = imgHab.objects.filter(idHab=habitacion)
+    servicios = servicio.objects.all()
+    categorias = dispHab.objects.all()
     urlCapturas = ""
     for i in capturas:
         urlCapturas += i.imagen.url + " "
     context = {
-    'juego': juego,
-    'tipoClaves': tipoClaves,
-    'desarrolladores': desarrolladores,
+    'habitacion': habitacion,
+    'tipoHabs': tipoHabs,
+    'servicios': servicios,
     'categorias': categorias,
     'capturas' : capturas,
     'urlCapturas' : urlCapturas
     }
-    return render(request, 'registroJuegos.html', context)
+    return render(request, 'registroHab.html', context)
 
 
 #series:

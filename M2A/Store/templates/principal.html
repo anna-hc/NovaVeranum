@@ -4,20 +4,20 @@
 <div class="container pt-5"> 
   <div id="carouselExampleCaptions" class="carousel slide mt-5 d-flex justify-content-center align-items-center" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      {% for juego in juegos %}
+      {% for habitacion in habitaciones %}
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.counter }}">
         </button>
       {% endfor %}
     </div>
     
     <div class="carousel-inner">
-      {% for juego in juegos %}
+      {% for habitacion in habitaciones %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <a href="{{ juego.idJuego }}">
-            <img src="{{ juego.imagen.url }}" class="d-block w-100" alt="No disponible">
+          <a href="{{ habitacion.idHab }}">
+            <img src="{{ habitacion.imagen.url }}" class="d-block w-100" alt="No disponible">
             <div class="carousel-caption d-none d-md-block">
-              <h5 class="h5portada">{{ juego.nombre }} </h5>
-              <p class="descripcionportada">{{ juego.descripcion }}</p>
+              <h5 class="h5portada">{{ habitacion.nombre }} </h5>
+              <p class="descripcionportada">{{ habitacion.descripcion }}</p>
             </div>
           </a>
         </div>
@@ -42,25 +42,25 @@
 
 <div class="container pt-5 pb-4">
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xl-3 row-cols-xxl-3 g-4">
-{%for juego in juegos%}
+{%for habitacion in habitaciones%}
     <div class="col">
       <div class="card"  style="width: 20rem; height: 480px; margin: 0 auto;">
-        <a href="{{juego.idJuego}}">
-          <img src="{{juego.imagen.url}}" class="card-img-top border-0" alt="No disponible">
+        <a href="{{habitacion.idHab}}">
+          <img src="{{habitacion.imagen.url}}" class="card-img-top border-0" alt="No disponible">
         </a>
 
         <div class="card-body">
-          <h5 class="card-title" id="titulojuego">{{juego.nombre}}</h5>
-          <h4 class="card-title" style="font-size: small;" id="desarrollador">Servicios: {{juego.desarrollador.nombre}}</h4>
-          <p class="card-text desc" style="margin-bottom: 5px;">{{juego.descripcion}}</p>
+          <h5 class="card-title" id="titulojuego">{{habitacion.nombre}}</h5>
+          <h4 class="card-title" style="font-size: small;" id="servicio">Servicios: {{habitacion.servicio.nombre}}</h4>
+          <p class="card-text desc" style="margin-bottom: 5px;">{{habitacion.descripcion}}</p>
           <div class="row">
             <div class="col-6">
-              <p class="pt-0" style="position: absolute; bottom:  40px;" id="producto">{{ juego.tipoClave.nombre }}</p>
-              <p style="color: success; font-size: 30px; margin: 0cm; position: absolute; bottom: 10px;">${{juego.precio}} </p>
+              <p class="pt-0" style="position: absolute; bottom:  40px;" id="producto">{{ habitacion.tipoHab.nombre }}</p>
+              <p style="color: success; font-size: 30px; margin: 0cm; position: absolute; bottom: 10px;">${{habitacion.precio}} </p>
             </div>
             <div class="col-4 offset-2" style=" padding-left: 15px;">
-              <p class="pt-0" style="margin:0cm; position: absolute; bottom: 57px;" id="stock"> Capacidad de {{juego.stock}} personas.</p>
-              <a class="btn-carro btn btn-primary btn-lg" href="{% url 'agregarJuegoCarro' idJuego=juego.idJuego%}" role="button" style="position: absolute; bottom: 10px; width: 20%;" id="btn-carro">
+              <p class="pt-0" style="margin:0cm; position: absolute; bottom: 57px;" id="capacidad"> Capacidad de {{habitacion.capacidad}} personas.</p>
+              <a class="btn-carro btn btn-primary btn-lg" href="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" role="button" style="position: absolute; bottom: 10px; width: 20%;" id="btn-carro">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                 </svg>
