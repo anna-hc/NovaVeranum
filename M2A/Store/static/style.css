@@ -1,19 +1,23 @@
 body{
-    background-color: #0C0C19;
+    background-color: #0A0A0A;
 }
 
 h1{
-    color: whitesmoke;
+    color: #88bfa0;
 }
 
+nav {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  }
 
 #tituloportada{
     text-align: center;
     font-size: 25px;
 }
 .navbar{
-    background-color: #05030d;
+    background-color: #171717;
 }
+
 .h5portada{
     text-shadow: 2px 2px #212428;
 }
@@ -27,7 +31,7 @@ h1{
 
 .navbar-brand{
     padding-left: 2rem;
-    color: whitesmoke;
+    color: black;
     font-size: 30px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -50,31 +54,31 @@ h1{
     transition: transform 0.3s ease;
 }
 .offcanvas-body{
-    background-color: #05030d;
+    background-color: #0a0a0a;
 }
 
 .offcanvas-header{
-    background-color: #05030d;
+    background-color: #0a0a0a;
 }
 
 #offcanvasNavbarLabel{
-    color: #ffffff;
+    color: black;
 }
 
 #btn-busqueda{
-    background-color: #11ced0;
+    background-color: #88BFA0;
     color: white;
     border: none;
 }
 
 #btn-busqueda:hover{
-    background-color: #0c9b9d;
+    background-color: #478562;
     color: white;
     border: none;
 }
 
 .card{
-    background-color: #212144;
+    background-color: #171717;
     color: whitesmoke;
 }
 
@@ -92,71 +96,71 @@ h1{
 }
 
 #btn-carro{
-    background-color: #4463f2;
+    background-color: #E8BA74;
     color: white;
     border: none;
 }
 
 #btn-carro:active{
-    background-color: #11ced0;
+    background-color: #E2A850;
     color: white;
     border: none;
     
 }
 #btn-carro:hover{
-    background-color: #11ced0 ;
+    background-color: #E2A850 ;
 }
 
 #carro{
-    background-color: #4463f2;
+    background-color: #E8BA74;
     color: white;
     border: none;
 }
 
 #carro:hover{
-    background-color: #11ced0;
+    background-color: #E2A850;
     color: white;
     border: none;
 }
 
 #carro:active{
-    background-color: #263586;
+    background-color: #E2A850;
     color: white;
     border: none;
 }
 
 .dropdown-item{
-    color: white;
+    color: #e6dfd6;
 }
 .dropdown-menu{
-    background-color: #0c0c19;
-    color: white;
+    background-color: #171717;
+    color: #e6dfd6;
 }
 .dropdown-menu:hover{
     color: #212144;
 }
 
 .dropdown-item:hover{
-    background-color: #212144;
-    color: white;
+    background-color: #171717;
+    color: #e6dfd6;
 }
 
 .dropdown-item{
-    color: white;
+    color: #e6dfd6;
 }
 .edad{
     font-weight: bold;
 }
 
 #busqueda{
-    background-color: #212144;
-    border-color: #0c0c19;
-    color: #ffffff;
+    background-color: #E6DFD6;
+    border-color: #E6DFD6;
+    color: #E6DFD6;
 }
 #busqueda::placeholder{
-    background-color: #212144;
-    border-color: #0c0c19;
-    color: #b0bdf8;
+    background-color: #E6DFD6;
+    border-color: #E6DFD6;
+    color: rgb(117, 113, 101)
 }
 
 .btnConversion{
@@ -229,7 +233,7 @@ h1{
 
 .footer {
     width: 100%;
-    background-color: #05030d;
+    background-color: #171717;
   }
 
 .table{
