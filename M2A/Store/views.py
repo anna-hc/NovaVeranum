@@ -80,6 +80,7 @@ def agregarHabCarro(request, idHab):
     if request.method == 'POST':
         fecha = request.POST['fechaReserva']
         dias = request.POST['cantidadDias']
+        print("entré al request post")
         try:
             reservas = Reserva.objects.filter(habitacion=idHab)
             inicio = datetime.datetime.strptime(str(fecha), "%Y-%m-%d")
@@ -112,7 +113,7 @@ def agregarHabCarro(request, idHab):
         except:
             context['error'] = 'Error al agregar el producto'
             return render(request, 'carrito.html', context)
-
+    return render(request, 'carrito.html', context)
 
 def verCarro(request):
     context = {}
@@ -162,7 +163,7 @@ def commit_transaction(request):
             if status == 'AUTHORIZED':
                 context['response'] = response
                 context['success_message'] = 'Pago realizado exitosamente.'
-                res = Reserva.objects.create(
+                Reserva.objects.create(
                     fecha = '2024-07-14',
                     dias = '10',
                     idUsuario = Usuario.objects.get(idUsuario=request.user.id),
@@ -178,6 +179,7 @@ def commit_transaction(request):
             del request.session['token_ws']
     except Exception as e:
         context['error'] = 'Compra cancelada'
+        print(e)
 
     return render(request, 'resultado_compra.html', context)
 

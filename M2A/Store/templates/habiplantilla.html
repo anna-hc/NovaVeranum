@@ -1,5 +1,5 @@
 {% extends "plantilla_base.html"  %}
-{% block titulo %} {{ habitacion.nombre }} en M2A  {% endblock %}
+{% block titulo %} {{ habitacion.nombre }} en Veranum {% endblock %}
 {% block contenido %}
 
 <div class="container pt-5">
@@ -41,7 +41,7 @@
             <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" id="btn_conversion"style="width: 60%;">Convertir a dólares</button>
           </div>
           <div class="col-6 d-flex justify-content-start">
-            <form action="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" method="post">
+            <form action="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" method="POST">
               {% csrf_token %}
               <input type="number" name="cantidadDias" value=1 class="cantidadDias form-control form-control-sm" id="cantidadDias" style="background-color: #171717; border-color: #88bfa0; color: #e6dfd6; margin-right: 10%; width: 35%;height:35%;" required min="1">
               <input type="date" class="fechaReserva form-control form-control-sm" id="fechaReserva" name="fechaReserva" style="width: 85%; height: 35%;background-color: #171717; border-color: #88bfa0; color: #e6dfd6;" required>
