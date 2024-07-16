@@ -5,23 +5,19 @@
 <div class="container pt-5">
     <div class="row mt-5 ">
       <div class="col-12 col-lg-7 justify-content-center align-items-center d-flex">
-        <iframe width="854" height="420" src="https://www.youtube.com/embed/{{ juego.ytVidId }}?autoplay=1&mute=1" title="Game trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <img src="{{juego.imagen.url}}" alt="" width="800" height="450">
       </div>
       <div class="col justify-content-end mt-4">
         <h4 style="font-size:40px; text-align: center; color: #b0bdf8; font-weight: bold">{{ juego.nombre }}</h4>
-<<<<<<< HEAD
-        <h4 style="font-size: larger; text-align: center; color: #485aff">{{ juego.desarrollador.nombre }}</h4>
-=======
-        <h4 style="font-size: larger; text-align: center; color: #485aff">Desarrollador: {{ juego.desarrollador.nombre }}</h4>
->>>>>>> a8a32ed78e32779448f3105f0b903407733eba4f
+        <h4 style="font-size: larger; text-align: center; color: #485aff">{{ juego.tipoClave.nombre }}</h4>
         <p style="color: white; padding-top: 25px;">{{ juego.descripcion }}</p>
-        <p style="color: #b0bdf8">Categoría: {{ juego.categoria.nombre }}</p>
+        <p style="color: #b0bdf8">Servicios extra: {{ juego.desarrollador.nombre }}</p>
         <div class="row align-items-center d-flex">
           <div class="col-4 ">
-            <p class="pt-1" id="producto" style="text-align: start; margin-bottom: 10px;">Clave de {{ juego.tipoClave.nombre }}</p>
+            <p class="pt-1" id="producto" style="text-align: start; margin-bottom: 10px;">Estado: {{juego.categoria.nombre}}</p>
           </div>
           <div class="offset-4 col-4">
-            <p class="pt-1" id="stock" style="text-align: center; margin-bottom: 10px;"> Stock: {{ juego.stock }}</p>
+            <p class="pt-1" id="stock" style="text-align: center; margin-bottom: 10px;"> Capacidad para {{ juego.stock }} personas</p>
           </div>
           <div class="col-6 d-flex align-items-center">
             <div class="spinner-border" role="status" id="spinner-precio" style="color: #11ced0; width: 25px; height: 25px;">
@@ -31,7 +27,7 @@
             <p type="text" style="color: success; font-size: 25px; color: #11ced0; position:relative; margin-bottom: 5px; text-align: start;" class="precioJuegoConvertido"></p>
           </div>
           <div class="col-6">
-            <p style="margin-bottom: 0; font-size: 18px; color: #11ced0; font-weight: 500; text-align: end; margin-bottom: 5px;">Añadir al carrito:</p>
+            <p style="margin-bottom: 0; font-size: 18px; color: #11ced0; font-weight: 500; text-align: end; margin-bottom: 5px;">Reserva aquí:</p>
           </div>
           <div class="col-6">
             <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" style="width: 60%;">Convertir a dólares</button>
