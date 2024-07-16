@@ -75,7 +75,6 @@ def plantilla(request):
 
 
 def agregarHabCarro(request, idHab):
-    error = 0
     context = {}
     if request.method == 'POST':
         fecha = request.POST['fechaReserva']
@@ -83,33 +82,34 @@ def agregarHabCarro(request, idHab):
         print("entré al request post")
         try:
             reservas = Reserva.objects.filter(habitacion=idHab)
-            inicio = datetime.datetime.strptime(str(fecha), "%Y-%m-%d")
-            fin = inicio + datetime.timedelta(days=int(dias))
-            for reserva in reservas:
-                fecha1 = datetime.datetime.strptime(str(reserva.fecha), "%Y-%m-%d")
-                for i in range(int(reserva.dias)):
-                    # print(fecha1)
-                    if inicio<= fecha1 <= fin:
-                        inicio1=datetime.datetime.strptime(str(reserva.fecha), "%Y-%m-%d")
-                        fin1 = inicio1 + datetime.timedelta(days=int(reserva.dias)-1)
-                        messages.error(request, f"La habitación estará reservada durante esa fecha ({inicio1.strftime("%d/%m/%Y")} - {fin1.strftime("%d/%m/%Y")})")
-                        return redirect('verHab', idHab=idHab)
-                    fecha1=fecha1 + datetime.timedelta(days=1)
-                else:
-                    usuario = request.user
-                    item = Habitacion.objects.get(idHab = idHab)
-                    carritoSesion = request.session.get('carrito', {})
-                    carritoSesion[str(idHab)] = {
-                    'idHab': str(item.idHab),
-                    'nombre' : item.nombre,
-                    'precio' : str(item.precio),
-                    'capacidad'  : item.capacidad,
-                    'imagen' : item.imagen.url if item.imagen else '',
-                    'cantidad': dias,
-                    'fecha' : fecha
-                    }
-                    request.session['carrito'] = carritoSesion
-                    return redirect(verCarro)
+            if reservas:
+                inicio = datetime.datetime.strptime(str(fecha), "%Y-%m-%d")
+                fin = inicio + datetime.timedelta(days=int(dias))
+                for reserva in reservas:
+                    fecha1 = datetime.datetime.strptime(str(reserva.fecha), "%Y-%m-%d")
+                    for i in range(int(reserva.dias)):
+                        # print(fecha1)
+                        if inicio<= fecha1 <= fin:
+                            inicio1=datetime.datetime.strptime(str(reserva.fecha), "%Y-%m-%d")
+                            fin1 = inicio1 + datetime.timedelta(days=int(reserva.dias)-1)
+                            messages.error(request, f"La habitación estará reservada durante esa fecha ({inicio1.strftime("%d/%m/%Y")} - {fin1.strftime("%d/%m/%Y")})")
+                            return redirect('verHab', idHab=idHab)
+                        fecha1=fecha1 + datetime.timedelta(days=1)
+            else:
+                usuario = request.user
+                item = Habitacion.objects.get(idHab = idHab)
+                carritoSesion = request.session.get('carrito', {})
+                carritoSesion[str(idHab)] = {
+                'idHab': str(item.idHab),
+                'nombre' : item.nombre,
+                'precio' : str(item.precio),
+                'capacidad'  : item.capacidad,
+                'imagen' : item.imagen.url if item.imagen else '',
+                'cantidad': dias,
+                'fecha' : fecha
+                }
+                request.session['carrito'] = carritoSesion
+                return redirect(verCarro)
         except:
             context['error'] = 'Error al agregar el producto'
             return render(request, 'carrito.html', context)
@@ -163,13 +163,15 @@ def commit_transaction(request):
             if status == 'AUTHORIZED':
                 context['response'] = response
                 context['success_message'] = 'Pago realizado exitosamente.'
-                Reserva.objects.create(
-                    fecha = '2024-07-14',
-                    dias = '10',
-                    idUsuario = Usuario.objects.get(idUsuario=request.user.id),
-                    habitacion = Habitacion.objects.get(idHab=carritoSesion['idHab'])
-                    )
-                print("pasé la creación de reserva")
+                for item in carritoSesion.values():
+                    print("pasé la creación de reserva")
+                    Reserva.objects.create(
+                        fecha = item['fecha'],
+                        dias = item['cantidad'],
+                        idUsuario = Usuario.objects.get(idUsuario=request.user.id),
+                        habitacion = Habitacion.objects.get(idHab=item['idHab'])
+                        )
+                    print("cree la reserva")
             elif status == 'REVERSED':
                 context['error'] = 'El pago fue cancelado.'
             else:
@@ -193,8 +195,7 @@ def eliminarHabCarro(request, idHab):
     try:
         carritoSesion = request.session.get('carrito', {})
         if str(idHab) in carritoSesion:
-            if carritoSesion[str(idHab)]['cantidad'] >= 1:
-                del carritoSesion[str(idHab)]
+            del carritoSesion[str(idHab)]
         request.session['carrito'] = carritoSesion
         return redirect(verCarro)
         #usuario = request.user
