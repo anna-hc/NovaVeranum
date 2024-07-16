@@ -50,16 +50,16 @@
         </a>
 
         <div class="card-body">
-          <h5 class="card-title" id="titulojuego">{{habitacion.nombre}}</h5>
+          <h5 class="card-title" id="titulojuego" style="color: #F5EBDD;">{{habitacion.nombre}}</h5>
           <h4 class="card-title" style="font-size: small;" id="servicio">Servicios: {{habitacion.servicio.nombre}}</h4>
-          <p class="card-text desc" style="margin-bottom: 5px;">{{habitacion.descripcion}}</p>
+          <p class="card-text desc" style="margin-bottom: 5px; color: #F5EBDD;">{{habitacion.descripcion}}</p>
           <div class="row">
             <div class="col-6">
               <p class="pt-0" style="position: absolute; bottom:  40px;" id="producto">{{ habitacion.tipoHab.nombre }}</p>
-              <p style="color: success; font-size: 30px; margin: 0cm; position: absolute; bottom: 10px;">${{habitacion.precio}} </p>
+              <p style="color: #F5EBDD; font-size: 30px; margin: 0cm; position: absolute; bottom: 10px;">${{habitacion.precio}} </p>
             </div>
             <div class="col-4 offset-2" style=" padding-left: 15px;">
-              <p class="pt-0" style="margin:0cm; position: absolute; bottom: 57px;" id="capacidad"> Capacidad de {{habitacion.capacidad}} personas.</p>
+              <p class="pt-0" style="margin:0cm; position: absolute; bottom: 57px;" id="capacidad"> Capacidad: {{habitacion.capacidad}} personas.</p>
               <a class="btn-carro btn btn-primary btn-lg" href="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" role="button" style="position: absolute; bottom: 10px; width: 20%;" id="btn-carro">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>

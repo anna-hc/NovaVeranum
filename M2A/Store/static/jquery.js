@@ -2,15 +2,23 @@ $(function(){
 
     $(document).ready(function() {
         $('.desc').each(function(){
-            if ($(this).text().length > 220){
+            if ($(this).text().length > 170){
                 var desc = $(this).text();
-                desc = desc.substring(0,220)
+                desc = desc.substring(0,170)
                 desc = desc.split(" ");
                 desc.pop()
                 desc = desc.join(" ") + " ...";
                 $(this).text(desc);
             };
         })   
+    });
+
+    $(document).ready(function() {
+        min = new Date().toLocaleDateString('fr-ca')
+        console.log(min);
+        $('.fechaReserva').attr({
+            "min" : min
+         })
     });
 
     $(document).ready(function() {
@@ -29,22 +37,22 @@ $(function(){
 //conversión a dólares
     $(document).ready(function() {$('.spinner-border').hide();});
     $('.btnConversion').click(function(){
-        $('.precioJuego').hide();
+        $('.preciohabitacion').hide();
         $('.spinner-border').show();
         $.getJSON('https://mindicador.cl/api', function(data) {
             if ($('.btnConversion').text().trim() == "Convertir a dólares"){
                 var dolar = data.dolar.valor;
-                var precio = $('.precioJuego').text().substring(1, $('.precioJuego').text().length-4).replaceAll('.', '');
+                var precio = $('.preciohabitacion').text().substring(1, $('.preciohabitacion').text().length-4).replaceAll('.', '');
                 var precioDolarizado = Math.round((precio / dolar)*100) / 100; //dos decimales
-                $('.precioJuegoConvertido').text("$"+ precioDolarizado + " USD");
+                $('.preciohabitacionConvertido').text("$"+ precioDolarizado + " USD");
                 $('.spinner-border').hide();
-                $('.precioJuegoConvertido').show();
+                $('.preciohabitacionConvertido').show();
                 $('.btnConversion').text("Convertir a pesos");
             }
             else if ($('.btnConversion').text().trim() == "Convertir a pesos"){
                 $('.spinner-border').hide();
-                $('.precioJuego').show();
-                $('.precioJuegoConvertido').hide();
+                $('.preciohabitacion').show();
+                $('.preciohabitacionConvertido').hide();
                 $('.btnConversion').text("Convertir a dólares"); 
             }
         }).fail(function() {

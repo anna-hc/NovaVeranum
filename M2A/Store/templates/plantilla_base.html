@@ -18,12 +18,12 @@
     <nav class="navbar fixed-top">
         <div class="container-fluid">
           <div class="d-flex align-items-center">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="color: white; border: none">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="color: #88BFA0; border: none">
               <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
               </svg>
             </button>
-            <a class="navbar-brand" href="{% url 'principal' %}"> <img src="{% static 'img/M2A.png' %}" alt="..." width="45%"></a>
+            <a class="navbar-brand" href="{% url 'principal' %}"> <img src="{% static 'img/Veranum.png' %}" alt="..." width="45%"></a>
           </div>
           <div class="d-none d-lg-block d-flex justify-content-center" style="flex-grow: 0.6;">
             <form class=" d-flex" role="search">
@@ -46,17 +46,17 @@
    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
     {% csrf_token %}
     </form>
-        <a href="#" class="ms-auto d-none d-lg-block" onclick="document.getElementById('logout-form').submit();" style="text-decoration: none; color: #4463f2; padding-right: 7px;">Cerrar Sesión</a>
+        <a href="#" class="ms-auto d-none d-lg-block" onclick="document.getElementById('logout-form').submit();" style="text-decoration: none; color: #88BFA0; padding-right: 7px;">Cerrar Sesión</a>
             <a href="{% url 'logout' %}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor" class="bi bi-person-circle d-none d-lg-block" viewBox="0 0 16 16" style="color: #4463f2;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor" class="bi bi-person-circle d-none d-lg-block" viewBox="0 0 16 16" style="color: #88BFA0;">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
               </svg>
             </a>
   {% else %}
-            <a href="{% url 'login' %}" id="logintext" class="ms-auto d-none d-lg-block" style="text-decoration: none; color: white; padding-right: 7px;">Iniciar Sesión</a>
+            <a href="{% url 'login' %}" id="logintext" class="ms-auto d-none d-lg-block" style="text-decoration: none; color: #e6dfd6; padding-right: 7px;">Iniciar Sesión</a>
             <a href="{% url 'login' %}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor" class="bi bi-person-circle d-none d-lg-block" viewBox="0 0 16 16" style="color: whitesmoke;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor" class="bi bi-person-circle d-none d-lg-block" viewBox="0 0 16 16" style="color: #e6dfd6;">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
               </svg>
@@ -64,7 +64,7 @@
   {% endif %}         
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-              <a class="navbar-brand" href="{% url 'principal' %}"> <img src="{% static 'img/M2A.png' %}" alt="..." width="45%"></a>
+              <a class="navbar-brand" href="{% url 'principal' %}"> <img src="{% static 'img/Veranum.png' %}" alt="..." width="45%"></a>
               <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
@@ -89,10 +89,10 @@
                
     
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'principal' %}" style="color: white;">Inicio</a>
+                  <a class="nav-link active" aria-current="page" href="{% url 'principal' %}" style="color: #e6dfd6;">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#e6dfd6">
                     Habitaciones
                   </a>
                   <ul class="dropdown-menu">
@@ -101,16 +101,16 @@
                 </li>
   {% if user.is_authenticated  %}
                 <li class="nav-item">
-                  <a class="nav-link active d-lg-none" aria-current="page" href="{% url 'registroUsuarios' %}" style="color: white;">Cerrar sesión</a>
+                  <a class="nav-link active d-lg-none" aria-current="page" href="{% url 'registroUsuarios' %}" style="color: #e6dfd6;">Cerrar sesión</a>
                 </li>
   {% else %}
                 <li class="nav-item">
-                  <a class="nav-link active d-lg-none" aria-current="page" href="{% url 'registroUsuarios' %}" style="color: white;">Registrarse</a>
+                  <a class="nav-link active d-lg-none" aria-current="page" href="{% url 'registroUsuarios' %}" style="color: #e6dfd6;">Registrarse</a>
                 </li>
   {% endif %}
   {% if user.is_superuser %}
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#e6dfd6">
                     Administración
                   </a>
                   <ul class="dropdown-menu">
@@ -126,15 +126,16 @@
         </div>
       </nav>
       <div class="container-fluid d-flex flex-column min-vh-50">
+        <div class="container pt-5"> </div>
         {% block contenido %}
         {% endblock %}
       </div>
       <div class="container-fluid d-flex flex-column" style="padding: 0;">
-        <footer class="footer mt-auto py-3 " style="background-color: #05030d;">
+        <footer class="footer mt-auto py-3 " style="background-color: #171717;">
           <div class="d-flex align-items-center" style="justify-content: center; padding-top: 15px; padding-bottom: 15px;">
 
-              <img src="../static/img/M2A.png" alt="M2A Logo" width="85px">
-              <span class="mb-3 mb-md-0" style="padding-left: 15px; text-align: center; color: whitesmoke">© 2024 Grupo Veranum</span>
+              <img src="../static/img/Veranum.png" alt="Veranum Logo" width="85px">
+              <span class="mb-3 mb-md-0" style="padding-left: 15px; text-align: center; color: #e6dfd6">© 2024 Grupo Veranum</span>
             </div>
           </div>
         </footer>

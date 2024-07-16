@@ -8,32 +8,33 @@
         <img src="{{habitacion.imagen.url}}" alt="" width="800" height="450">
       </div>
       <div class="col justify-content-end mt-4">
-        <h4 style="font-size:40px; text-align: center; color: #b0bdf8; font-weight: bold">{{ habitacion.nombre }}</h4>
-        <h4 style="font-size: larger; text-align: center; color: #485aff">{{ habitacion.tipoHab.nombre }}</h4>
-        <p style="color: white; padding-top: 25px;">{{ habitacion.descripcion }}</p>
-        <p style="color: #b0bdf8">Servicios extra: {{ habitacion.servicio.nombre }}</p>
+        <h4 style="font-size:40px; text-align: center; color: #e6dfd6; font-weight: bold">{{ habitacion.nombre }}</h4>
+        <h4 style="font-size: larger; text-align: center; color: #88bfa0">{{ habitacion.tipoHab.nombre }}</h4>
+        <p style="color: #e6dfd6; padding-top: 25px;">{{ habitacion.descripcion }}</p>
+        <p style="color: #E8BA74">Servicios extra: {{ habitacion.servicio.nombre }}</p>
         <div class="row align-items-center d-flex">
           <div class="col-4 ">
-            <p class="pt-1" id="producto" style="text-align: start; margin-bottom: 10px;">Estado: {{habitacion.dispHab.nombre}}</p>
+            <p class="pt-1" id="producto" style="text-align: start; margin-bottom: 10px; color: #e6dfd6;">Estado: {{habitacion.dispHab.nombre}}</p>
           </div>
-          <div class="offset-4 col-4">
-            <p class="pt-1" id="stock" style="text-align: center; margin-bottom: 10px;"> Capacidad para {{ habitacion.capacidad }} personas</p>
+          <div class="offset-2 col-6">
+            <p class="pt-1" id="stock" style="text-align: start; margin-bottom: 10px; color: #e6dfd6"> Capacidad para {{ habitacion.capacidad }} personas</p>
           </div>
           <div class="col-6 d-flex align-items-center">
-            <div class="spinner-border" role="status" id="spinner-precio" style="color: #11ced0; width: 25px; height: 25px;">
+            <div class="spinner-border" role="status" id="spinner-precio" style="color: #88bfa0; width: 25px; height: 25px;">
               <span class="sr-only"></span>
             </div>
-            <p type="text" style="color: success; font-size: 25px; color: #11ced0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacion">${{ habitacion.precio }} CLP</p>
-            <p type="text" style="color: success; font-size: 25px; color: #11ced0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacionConvertido"></p>
+            <p type="text" style="color: success; font-size: 25px; color: #88bfa0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacion">${{ habitacion.precio }} CLP</p>
+            <p type="text" style="color: success; font-size: 25px; color: #88bfa0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacionConvertido"></p>
           </div>
           <div class="col-6">
-            <p style="margin-bottom: 0; font-size: 18px; color: #11ced0; font-weight: 500; text-align: end; margin-bottom: 5px;">Reserva aquí:</p>
+            <p style="font-size: 18px; color: #E8BA74; font-weight: 500; text-align: start; margin-bottom: 5px;">Reserva aquí:</p>
           </div>
           <div class="col-6">
-            <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" style="width: 60%;">Convertir a dólares</button>
+            <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" id="btn_conversion"style="width: 60%;">Convertir a dólares</button>
           </div>
-          <div class="col-6 d-flex justify-content-end">
-            <a class="btn-carro btn btn-primary btn mt-1" href="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" role="button" id="btn-carro" style="width: 80px; margin-right: 14%;">
+          <div class="col-6 d-flex justify-content-end align-items-center">
+            <input type="date" class="fechaReserva form-control" id="fechaReserva" name="fechaReserva" style="width: 85%; height: 45%;background-color: #171717; border-color: #88bfa0; color: #e6dfd6;" required>
+            <a class="btn-carro btn btn-primary btn mt-1" href="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" role="button" id="btn-carro" style="width: 80px; margin-left: 10%;">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
               </svg>
@@ -42,7 +43,7 @@
         </div>
       </div>
     </div> 
-    <h1 class="mt-5" style="color: #b0bdf8; text-align: center; font-weight: bold;">Capturas:</h1>
+    <h1 class="mt-5" style="color: #88bfa0; text-align: center; font-weight: bold;">Imágenes:</h1>
 
     <div class="row mt-5">
       {%for captura in capturas%}
