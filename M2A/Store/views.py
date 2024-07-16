@@ -134,6 +134,7 @@ def verCarro(request):
 
 def commit_transaction(request):
     context = {}
+    carritoSesion = request.session.get('carrito', {})
     try:
         token = request.session.get('token_ws')
         if not token:
@@ -146,6 +147,13 @@ def commit_transaction(request):
             if status == 'AUTHORIZED':
                 context['response'] = response
                 context['success_message'] = 'Pago realizado exitosamente.'
+                res = Reserva.objects.create(
+                    fecha = '2024-07-14',
+                    dias = '10',
+                    idUsuario = Usuario.objects.get(idUsuario=request.user.id),
+                    habitacion = Habitacion.objects.get(idHab=carritoSesion['idHab'])
+                    )
+                print("pasé la creación de reserva")
             elif status == 'REVERSED':
                 context['error'] = 'El pago fue cancelado.'
             else:
@@ -329,7 +337,7 @@ def subirReserva(request):
         idReserva       = request.POST['txtId']
         fecha           = request.POST['fechaReserva1']
         dias            = request.POST['cantidadDias']
-       
+        
         #convertir idserie en un string para comparar
         str(idReserva)
         if 'enviarReserva' in request.POST:
@@ -337,6 +345,7 @@ def subirReserva(request):
                  Reserva.objects.create(
                     fecha = fecha,
                     dias = dias,
+                    idUsuario = Usuario.objects.get(idUsuario=request.user.id),
                     habitacion = Habitacion.objects.get(idHab=request.POST['habitacion'])
                     )
                  context['exito'] = "Reserva creada con éxito"
@@ -344,6 +353,7 @@ def subirReserva(request):
                 reserva = Reserva.objects.get(idReserva = request.POST['txtId'])
                 reserva.fecha = fecha
                 reserva.dias = dias
+                reserva.idUsuario = Usuario.objects.get(idUsuario=request.user.id)
                 reserva.habitacion = Habitacion.objects.get(idHab=request.POST['habitacion'])
                 reserva.save()
                 context['exito'] = "Reserva actualizada con éxito"
