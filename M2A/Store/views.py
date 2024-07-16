@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Habitacion, Carrito, tipoHab, Serie, imagenSerie,categoriaSerie, imgHab, Usuario, Region, nivelEducacional, servicio, dispHab
+from .models import Habitacion, Carrito, tipoHab, imgHab, Usuario, Region, nivelEducacional, servicio, dispHab, Reserva
 from M2A.settings import MEDIA_URL
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -48,13 +48,14 @@ def registroHab(request):
     return render(request, 'registroHab.html', context)
 
 @login_required
-def registroSeries(request):
-    disponibilidad = categoriaSerie.objects.all()
-
+def registroReservas(request):
+    reservas = Reserva.objects.all()
+    habitaciones = Habitacion.objects.all()
     context = {
-    'disponibilidad': disponibilidad
+    'reservas': reservas,
+    'habitaciones': habitaciones
     }
-    return render(request, 'registroSeries.html', context)
+    return render(request, 'registroReservas.html', context)
 
 def verHab(request, idHab):
     habitacion = Habitacion.objects.get(idHab = idHab)
@@ -298,93 +299,67 @@ def modificarHab(request, idHab):
 #series:
 
 @login_required
-def listadoSeries(request):
-    series = Serie.objects.all()
-    disponibilidad = categoriaSerie.objects.all()
-    context = {
-    'series': series,
-    'disponibilidad': disponibilidad 
-    }
-    return render(request, 'listadoSeries.html', context)
+def listadoReservas(request):
+    context = {}
+    reservas = Reserva.objects.all()
+    print("---------")
+    print(reservas)
+    context['reservas'] = reservas
+    return render(request, 'listadoReservas.html', context)
 
 @login_required
-def eliminarSerie(request, idSerie):
+def eliminarReserva(request, idReserva):
     context = {}
     try:
-        serie = Serie.objects.get(idSerie = idSerie)
-        serie.delete()
-        context['exito'] = 'Serie eliminada con éxito'
+        reserva = Reserva.objects.get(idReserva = idReserva)
+        reserva.delete()
+        context['exito'] = 'Reserva eliminada con éxito'
     except:
-        context['error'] = 'Error al eliminar la Serie'
+        context['error'] = 'Error al eliminar la reserva'
     
-    serie = Serie.objects.all()
-    context['serie'] = serie
-    return render(request, 'listadoSeries.html', context)
+    reservas = Reserva.objects.all()
+    context['reservas'] = reservas
+    return render(request, 'listadoReservas.html', context)
 
 @login_required
-def subirSerie(request):
+def subirReserva(request):
     context = {}
     if request.method == 'POST':
         
-        idSerie         = request.POST['txtId']
-        nombre          = request.POST['titulo']
-        estudio         = request.POST['estudio']
-        descripcion     = request.POST['descripcion']
-        precio          = request.POST['precio']
-        capacidad       = request.POST['capacidad']
-        ytVidId         = request.POST['link']
-        fechalanz       = request.POST['lanzamiento']
-        
-        # buscar youtube id
-        ##m =  re.search(r"([\d\w-_]{11})", ytVidId)
-        #ytVidId = m.group()
-        
+        idReserva       = request.POST['txtId']
+        fecha           = request.POST['fechaReserva1']
+        dias            = request.POST['cantidadDias']
+       
         #convertir idserie en un string para comparar
-        str(idSerie)
-        if 'enviarSerie' in request.POST:
-            if idSerie == "0":
-                 Serie.objects.create(
-                    nombre = nombre,
-                    estudio = estudio,
-                    descripcion = descripcion,
-                    imagen = request.FILES['imagen'],
-                    ytVidId = ytVidId,
-                    precio = precio,
-                    capacidad = capacidad,
-                    clave = request.FILES['archivo'],
-                    fechalanz = fechalanz,
-                    categoria = categoriaSerie.objects.get(idDisp=request.POST['categoria'])
+        str(idReserva)
+        if 'enviarReserva' in request.POST:
+            if idReserva == "0":
+                 Reserva.objects.create(
+                    fecha = fecha,
+                    dias = dias,
+                    habitacion = Habitacion.objects.get(idHab=request.POST['habitacion'])
                     )
-                 context['exito'] = "Serie creada con éxito"
+                 context['exito'] = "Reserva creada con éxito"
             else:
-                serie = Serie.objects.get(idSerie = request.POST['txtId'])
-                serie.nombre = nombre
-                serie.estudio = estudio
-                serie.descripcion = descripcion
-                serie.ytVidId = ytVidId
-                serie.precio = precio
-                serie.capacidad = capacidad
-                serie.fechalanz = fechalanz
-                serie.categoria = categoriaSerie.objects.get(idDisp=request.POST['categoria'])
-                if 'imagen' in request.FILES:
-                    serie.imagen = request.FILES['imagen']
-                if 'archivo' in request.FILES:
-                    serie.clave = request.FILES['archivo']
-                serie.save()
-                context['exito'] = "Serie actualizada con éxito"
+                reserva = Reserva.objects.get(idReserva = request.POST['txtId'])
+                reserva.fecha = fecha
+                reserva.dias = dias
+                reserva.habitacion = Habitacion.objects.get(idHab=request.POST['habitacion'])
+                reserva.save()
+                context['exito'] = "Reserva actualizada con éxito"
                 
-    context['series'] = Serie.objects.all()
-    return render(request, 'listadoSeries.html', context)
+    context['reservas'] = Reserva.objects.all()
+    return render(request, 'listadoReservas.html', context)
 
 @login_required
-def modificarSerie(request, idSerie):
-    serie = Serie.objects.get(idSerie = idSerie)
-    disponibilidad = categoriaSerie.objects.all()
+def modificarReserva(request, idReserva):
+    reservas = Reserva.objects.get(idReserva = idReserva)
+    habitaciones = Habitacion.objects.all()
     context = {
-    'serie': serie,
-    'disponibilidad': disponibilidad,
+    'reservas': reservas,
+    'habitaciones': habitaciones,
     }
-    return render(request, 'registroSeries.html', context)
+    return render(request, 'registroReservas.html', context)
 
 #usuarios:
 @login_required

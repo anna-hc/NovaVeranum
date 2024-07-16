@@ -32,27 +32,11 @@ class dispHab(models.Model):
     idDisp        = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=40)
 
-class Serie(models.Model):
-    idSerie       = models.IntegerField(primary_key=True)
-    estudio       = models.CharField(max_length=50, null=True)
-    nombre        = models.CharField(max_length=50)
-    descripcion   = models.CharField(max_length=220)
-    fechalanz     = models.DateField(default='2000-01-01')
-    precio        = models.IntegerField()
-    imagen        = models.ImageField(upload_to='series/imagenes')
-    stock         = models.IntegerField()
-    clave         = models.FileField(upload_to='series/claves_zip/',null= False)
-    categoria     = models.ForeignKey('categoriaSerie', on_delete=models.CASCADE)    
-    ytVidId       = models.CharField(max_length=11, null=True)
-
-class imagenSerie (models.Model):
-    idSerie       = models.ForeignKey('Serie', on_delete=models.CASCADE)    
-    idImagen      = models.IntegerField(primary_key=True)
-    imagen        = models.ImageField(upload_to='series/imagenes/',null= False)
-
-class categoriaSerie (models.Model):
-    idDisp = models.IntegerField(primary_key=True)
-    nombre = models.CharField(max_length=40)
+class Reserva(models.Model):
+    idReserva     = models.IntegerField(primary_key=True)
+    dias          = models.CharField(max_length=50, null=True)
+    fecha         = models.DateField(default='2000-01-01')
+    habitacion    = models.ForeignKey('Habitacion', on_delete=models.CASCADE)
 
 class Usuario ( models.Model):
     idUsuario = models.AutoField(primary_key=True)
@@ -77,4 +61,3 @@ class Carrito(models.Model):
     idCarro = models.AutoField(primary_key=True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     reserva = models.ManyToManyField('Habitacion', related_name='carritos', blank=True)
-    series = models.ManyToManyField('Serie', related_name='carritos', blank=True)
