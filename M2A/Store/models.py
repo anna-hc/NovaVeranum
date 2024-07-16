@@ -33,7 +33,7 @@ class dispHab(models.Model):
     nombre        = models.CharField(max_length=40)
 
 class Reserva(models.Model):
-    idReserva     = models.IntegerField(primary_key=True)
+    idReserva     = models.AutoField(primary_key=True)
     dias          = models.CharField(max_length=50, null=True)
     fecha         = models.DateField(default='2000-01-01')
     habitacion    = models.ForeignKey('Habitacion', on_delete=models.CASCADE)
