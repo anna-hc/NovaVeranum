@@ -50,12 +50,12 @@
         </a>
 
         <div class="card-body">
-          <h5 class="card-title" id="titulojuego" style="color: #F5EBDD;">{{habitacion.nombre}}</h5>
-          <h4 class="card-title" style="font-size: small;" id="servicio">Servicios: {{habitacion.servicio.nombre}}</h4>
+          <h5 class="card-title" id="titulohab" style="color: #F5EBDD;">{{habitacion.nombre}}</h5>
+          <h4 class="card-title" style="font-size: small; color:#E8BA74" id="servicio">Servicios: {{habitacion.servicio.nombre}}</h4>
           <p class="card-text desc" style="margin-bottom: 5px; color: #F5EBDD;">{{habitacion.descripcion}}</p>
           <div class="row">
             <div class="col-6">
-              <p class="pt-0" style="position: absolute; bottom:  40px;" id="producto">{{ habitacion.tipoHab.nombre }}</p>
+              <p class="pt-0" style="position: absolute; bottom:  40px; font-weight: 500;" id="producto">{{ habitacion.tipoHab.nombre }}</p>
               <p style="color: #F5EBDD; font-size: 30px; margin: 0cm; position: absolute; bottom: 10px;">${{habitacion.precio}} </p>
             </div>
             <div class="col-4 offset-2" style=" padding-left: 15px;">
