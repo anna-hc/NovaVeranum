@@ -10,7 +10,7 @@
                         Vista previa de la imagen
                     </div>
                     <div class="card-body text-center">
-                        <img id="vista-previa" src="{{juego.imagen.url}}" alt="" class="img-fluid vista-previa">
+                        <img id="vista-previa" src="{{habitacion.imagen.url}}" alt="" class="img-fluid vista-previa">
                         <button type="button" class="btnVistaPreviaJ btn btn-primary btn-sm mt-3" style="width: 60%;">Vista previa</button>
                     </div>
                 </div>
@@ -24,17 +24,17 @@
                     </div>
                 
                     <div class="card-body" style="background-color: #2f2c58;">
-                      <input type="hidden" name="txtId" value="0{{juego.idJuego}}">
+                      <input type="hidden" name="txtId" value="0{{habitacion.idJuego}}">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label" style="color: whitesmoke;">Nombre de la habitación</label>
-                                <input type="text" value="{{juego.nombre}}" name="nombre" class="txtJNombre form-control" id="nombre" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el nombre (máximo 20 carácteres)" required>
+                                <input type="text" value="{{habitacion.nombre}}" name="nombre" class="txtJNombre form-control" id="nombre" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el nombre (máximo 20 carácteres)" required>
                             </div>
                           <div class="mb-3">
                             <label for="categoriaJuego" class="form-label" style="color: whitesmoke;">Disponibilidad</label>
-                            <select class="categoriaJuego form-select form-select-sm" value="{{juego.categoria}}" aria-label="Default select example" name="categoriaJuego" style="background-color: #14142b; border-color: #202043; color: white" required>
+                            <select class="categoriaJuego form-select form-select-sm" value="{{habitacion.categoria}}" aria-label="Default select example" name="categoriaJuego" style="background-color: #14142b; border-color: #202043; color: white" required>
                               <option selected>Seleccione disponibilidad</option>
                               {%for categoria in categorias%}
-                                {%if juego.categoria.idCategoria == categoria.idCategoria %}
+                                {%if habitacion.categoria.idCategoria == categoria.idCategoria %}
                                 <option name="idCategoria" value="{{categoria.idCategoria}}" selected>{{categoria.nombre}}</option>
                                 {%else%}
                                 <option name="idCategoria" value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
@@ -44,15 +44,15 @@
                         </div>
                             <div class="mb-3">
                                 <label for="descripcion" class="form-label" style="color: whitesmoke;">Descripción</label>
-                                <textarea name="descripcion" class="txtJDesc form-control" id="descripcion" rows="3" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Descripción de la habitación" required>{{juego.descripcion}}</textarea>
+                                <textarea name="descripcion" class="txtJDesc form-control" id="descripcion" rows="3" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Descripción de la habitación" required>{{habitacion.descripcion}}</textarea>
                             </div>
                             <div class="mb-3">
-                                {%if juego.imagen%}
-                                <label for="imagen" class="form-label" style="color: whitesmoke;">Imagen principal: {{juego.imagen.url}} </label>
-                                <input type="file" name="imagen" value="{{juego.imagen}}" class="Img form-control imagen1" id="imagen" accept="image/*">
+                                {%if habitacion.imagen%}
+                                <label for="imagen" class="form-label" style="color: whitesmoke;">Imagen principal: {{habitacion.imagen.url}} </label>
+                                <input type="file" name="imagen" value="{{habitacion.imagen}}" class="Img form-control imagen1" id="imagen" accept="image/*">
                                 {%else%}
                                 <label for="imagen" class="form-label" style="color: whitesmoke;">Imagen principal:</label>
-                                <input type="file" name="imagen" value="{{juego.imagen}}" class="Img form-control imagen1" id="imagen" accept="image/*" required>
+                                <input type="file" name="imagen" value="{{habitacion.imagen}}" class="Img form-control imagen1" id="imagen" accept="image/*" required>
                                 {%endif%}
                             </div>
                             <div class="mb-3">
@@ -61,23 +61,23 @@
                                 <input type="file" name="captura" value="{{captura.imagen}}" class="Img form-control" id="captura" accept="image/*" multiple>
                                 {%else%}
                                 <label for="captura" class="form-label" style="color: whitesmoke;">Imágenes de la habitación</label>
-                                <input type="file" name="captura" value="{{juego.imagen}}" class="Img form-control" id="captura" accept="image/*" required multiple>
+                                <input type="file" name="captura" value="{{habitacion.imagen}}" class="Img form-control" id="captura" accept="image/*" required multiple>
                                 {%endif%}
                             </div>
                             <div class="mb-3">
                               <label for="precio" class="form-label" style="color: whitesmoke;">Precio por noche</label>
-                              <input type="number" name="precio" value="{{juego.precio}}" class="txtJPrecio form-control" id="precio" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el precio en CLP" required min="1">
+                              <input type="number" name="precio" value="{{habitacion.precio}}" class="txtJPrecio form-control" id="precio" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el precio en CLP" required min="1">
                           </div>
                           <div class="mb-3">
                             <label for="stock" class="form-label" style="color: whitesmoke;">Ingrese capacidad</label>
-                            <input type="number" name="stock" value="{{juego.stock}}" class="txtJStock form-control" id="stock" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingrese la capacidad de personas" required min="1">
+                            <input type="number" name="stock" value="{{habitacion.stock}}" class="txtJStock form-control" id="stock" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingrese la capacidad de personas" required min="1">
                         </div>
                             <div class="mb-3">
                               <label for="tipoClave" class="form-label" style="color: whitesmoke;">Tipo de habitación</label>
-                              <select class="txtJPlataforma form-select" name="tipoClave" value="{{juego.tipoClave}}" id="tipoClave" style="background-color: #14142b; border-color: #202043; color: white;" required>
+                              <select class="txtJPlataforma form-select" name="tipoClave" value="{{habitacion.tipoClave}}" id="tipoClave" style="background-color: #14142b; border-color: #202043; color: white;" required>
                                 <option value="">Selecciona un tipo de habitación</option>
                                 {%for tipoClave in tipoClaves%}
-                                {%if juego.tipoClave.idTipo == tipoClave.idTipo %}
+                                {%if habitacion.tipoClave.idTipo == tipoClave.idTipo %}
                                 <option name="idTpoClave" value="{{tipoClave.idTipo}}" selected>{{tipoClave.nombre}}</option>
                                 {%else%}
                                 <option name="idTpoClave" value="{{tipoClave.idTipo}}">{{tipoClave.nombre}}</option>
@@ -86,14 +86,14 @@
                               </select>
                             </div>
                             <div class="mb-3">
-                                <label for="desarrollador" class="form-label" style="color: whitesmoke;">Servicios</label>
-                                <select class="desarrollador form-select form-select-sm" value="{{juego.desarrollador}}" aria-label="Default select example" name="desarrollador" style="background-color: #14142b; border-color: #202043; color: white" required>
+                                <label for="servicio" class="form-label" style="color: whitesmoke;">Servicios</label>
+                                <select class="servicio form-select form-select-sm" value="{{habitacion.servicio}}" aria-label="Default select example" name="servicio" style="background-color: #14142b; border-color: #202043; color: white" required>
                                   <option selected>Seleccione servicios</option>
-                                  {%for desarrollador in desarrolladores%}
-                                  {%if juego.desarrollador.idDev == desarrollador.idDev %}
-                                  <option name="idDev" value="{{desarrollador.idDev}}" selected>{{desarrollador.nombre}}</option>
+                                  {%for servicio in servicios%}
+                                  {%if habitacion.servicio.idServ == servicio.idServ %}
+                                  <option name="idServ" value="{{servicio.idServ}}" selected>{{servicio.nombre}}</option>
                                   {%else%}
-                                  <option name="idDev" value="{{desarrollador.idDev}}">{{desarrollador.nombre}}</option>
+                                  <option name="idServ" value="{{servicio.idServ}}">{{servicio.nombre}}</option>
                                   {%endif%}
                                   {%endfor%}
                                 </select>
