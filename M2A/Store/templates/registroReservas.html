@@ -1,0 +1,61 @@
+{% extends "plantilla_base.html"  %}
+{% block titulo %} Registro Reservas {% endblock %}
+{% block contenido %}
+
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header" style="text-align: center; font-size: 20px; background-color: #202043; color: whitesmoke; font-weight: bold;">
+                        Vista previa de la imagen
+                    </div>
+                    <div class="card-body text-center">
+                        <img id="vista-previa" src="{{reserva.habitacion.imagen.url}}" alt="Preview" class="img-fluid vista-previa">
+                        <button type="button" class="btnVistaPreviaS btn btn-primary btn-sm mt-3" style="width: 60%;">Vista previa</button>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-8">
+                <form class="card" action="{% url 'subirReserva' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-header" style="text-align: center; font-size: 20px; background-color: #202043; color: whitesmoke; font-weight: bold;">
+                        Subir Nueva Reserva
+                    </div>
+                    <div class="card-body" style="background-color: #2f2c58;">
+                        <input type="hidden" name="txtId" value="0{{reserva.idReserva}}">
+                            <div class="mb-3">
+                                <label for="fechaReserva1" class="form-label" style="color: whitesmoke;">Fecha de la reserva</label>
+                                <input type="date" class="fechaReserva1 form-control" value="{{reserva.fecha|date:'Y-m-d'}}" id="fechaReserva1" name="fechaReserva1" style="width: 85%; height: 45%;background-color: #171717; border-color: #88bfa0; color: #e6dfd6;" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estudio" class="form-label" style="color: whitesmoke;">Cantidad de días</label>
+                                <input type="number" name="cantidadDias" value="{{reserva.dias}}" class="cantidadDias form-control" id="cantidadDias" style="background-color: #171717; border-color: #88bfa0; color: #e6dfd6; margin-right: 10%; width: 35%" required min="1">
+                            </div>
+                            <div class="mb-3">
+                              <label for="habitacion" class="form-label" style="color: whitesmoke;">Habitación</label>
+                              <select class="txtSHabitacion form-select" value="{{reserva.habitacion}}" name="habitacion" id="habitacion" style="background-color: #14142b; border-color: #202043; color: white;" required>
+                                <option value="">Selecciona una habitación</option>
+                                {%for habitacion in habitaciones%}
+                                {%if reserva.habitacion.idHab == habitacion.idHab %}
+                                <option name="idTpoClave" value="{{habitacion.idHab}}" selected>{{habitacion.nombre}}</option>
+                                {%else%}
+                                <option name="idTpoClave" value="{{habitacion.idHab}}">{{habitacion.nombre}}</option>
+                                {%endif%}
+                                {%endfor%}
+                              </select>
+                            </div>
+                          <div class="row pt-3">
+                            <div class="col-2 d-flex justify-content-start">
+                                <button type="submit" class="btn-aceptar btn me-auto" style="font-weight: bold;" id="limpiarReserva">Limpiar</button>
+                            </div>
+                            <div class="col-2 offset-8 d-flex justify-content-end">
+                            <button type="submit" name = "enviarReserva" class="btn-aceptar btn ms-auto" style="font-weight: bold; align-items: end;" id="enviarReserva">Agregar</button>
+                            </div>
+                          </div>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
