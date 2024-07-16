@@ -25,18 +25,18 @@
                 </tr>
               </thead>
               <tbody>
-              {% for idJuego, item in listado.items %}
+              {% for idHab, item in listado.items %}
                 <tr class="carrito">
-                    <td>{{item.idJuego}}</td>
-                    <td><a href="{% url 'verJuego' idJuego=item.idJuego%}"><img src="{{item.imagen}}" alt="No disponible" style="max-width: 100px; max-height: 140px;"></a></td>
+                    <td>{{item.idHab}}</td>
+                    <td><a href="{% url 'verHab' idHab=item.idHab%}"><img src="{{item.imagen}}" alt="No disponible" style="max-width: 100px; max-height: 140px;"></a></td>
                     <td>{{item.nombre}}</td>
                     <td class="precio-carro">{{item.precio}}</td>
                     <td>
-                      <input type="text" class="form-control cantidad" min="1" max="{{item.stock}}" value="{{item.cantidad}}">
+                      <input type="text" class="form-control cantidad" min="1" max="{{item.capacidad}}" value="{{item.cantidad}}">
                     </td>
                     <td class="subtotal"></td>
                     <td>                
-                      <a href="{% url 'eliminarJuegoCarro' idJuego=item.idJuego%}" class="btn btn-danger eliminar">Eliminar</a>
+                      <a href="{% url 'eliminarHabCarro' idHab=item.idHab%}" class="btn btn-danger eliminar">Eliminar</a>
                     </td>
                 </tr>
               {% endfor %}

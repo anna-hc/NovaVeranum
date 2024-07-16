@@ -7,9 +7,9 @@ class Habitacion(models.Model):
     idHab         = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=50)
     servicio      = models.ForeignKey('servicio', on_delete=models.CASCADE)
-    dispHab          = models.ForeignKey('dispHab', on_delete=models.CASCADE)
+    dispHab       = models.ForeignKey('dispHab', on_delete=models.CASCADE)
     descripcion   = models.CharField(max_length=550)
-    imagen        = models.ImageField(upload_to='juegos/imagenes')
+    imagen        = models.ImageField(upload_to='habitaciones/imagenes')
     ytVidId       = models.CharField(max_length=11, null=True)
     precio        = models.IntegerField()
     capacidad     = models.IntegerField()
@@ -22,14 +22,14 @@ class tipoHab(models.Model):
 class imgHab(models.Model):
     idImg         = models.AutoField(primary_key=True)
     idHab         = models.ForeignKey('Habitacion', on_delete=models.CASCADE)
-    imagen        = models.ImageField(upload_to='juegos/capturas')
+    imagen        = models.ImageField(upload_to='habitaciones/capturas')
 
 class servicio(models.Model):
-    idDev         = models.AutoField(primary_key=True)
+    idServ         = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=50)
 
 class dispHab(models.Model):
-    idCategoria   = models.AutoField(primary_key=True)
+    idDisp        = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=40)
 
 class Serie(models.Model):
@@ -51,7 +51,7 @@ class imagenSerie (models.Model):
     imagen        = models.ImageField(upload_to='series/imagenes/',null= False)
 
 class categoriaSerie (models.Model):
-    idCategoria = models.IntegerField(primary_key=True)
+    idDisp = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=40)
 
 class Usuario ( models.Model):

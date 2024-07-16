@@ -17,27 +17,27 @@
             </div>
             
             <div class="col-md-8">
-                <form class="card mb-5 " action="{% url 'subirJuego' %}" method="post" enctype="multipart/form-data">
+                <form class="card mb-5 " action="{% url 'subirHab' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
                     <div class="card-header" style="text-align: center; font-size: 20px; background-color: #202043; color: whitesmoke; font-weight: bold;">
                         Crear Habitación
                     </div>
                 
                     <div class="card-body" style="background-color: #2f2c58;">
-                      <input type="hidden" name="txtId" value="0{{habitacion.idJuego}}">
+                      <input type="hidden" name="txtId" value="0{{habitacion.idHab}}">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label" style="color: whitesmoke;">Nombre de la habitación</label>
                                 <input type="text" value="{{habitacion.nombre}}" name="nombre" class="txtJNombre form-control" id="nombre" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el nombre (máximo 20 carácteres)" required>
                             </div>
                           <div class="mb-3">
-                            <label for="categoriaJuego" class="form-label" style="color: whitesmoke;">Disponibilidad</label>
-                            <select class="categoriaJuego form-select form-select-sm" value="{{habitacion.categoria}}" aria-label="Default select example" name="categoriaJuego" style="background-color: #14142b; border-color: #202043; color: white" required>
+                            <label for="dispHab" class="form-label" style="color: whitesmoke;">Disponibilidad</label>
+                            <select class="dispHab form-select form-select-sm" value="{{habitacion.dispHab}}" aria-label="Default select example" name="dispHab" style="background-color: #14142b; border-color: #202043; color: white" required>
                               <option selected>Seleccione disponibilidad</option>
-                              {%for categoria in categorias%}
-                                {%if habitacion.categoria.idCategoria == categoria.idCategoria %}
-                                <option name="idCategoria" value="{{categoria.idCategoria}}" selected>{{categoria.nombre}}</option>
+                              {%for dispHab in disponibilidad%}
+                                {%if habitacion.dispHab.idDisp == dispHab.idDisp %}
+                                <option name="idDisp" value="{{dispHab.idDisp}}" selected>{{dispHab.nombre}}</option>
                                 {%else%}
-                                <option name="idCategoria" value="{{categoria.idCategoria}}">{{categoria.nombre}}</option>
+                                <option name="idDisp" value="{{dispHab.idDisp}}">{{dispHab.nombre}}</option>
                                 {%endif%}
                                 {%endfor%}
                             </select>
@@ -69,18 +69,18 @@
                               <input type="number" name="precio" value="{{habitacion.precio}}" class="txtJPrecio form-control" id="precio" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingresa el precio en CLP" required min="1">
                           </div>
                           <div class="mb-3">
-                            <label for="stock" class="form-label" style="color: whitesmoke;">Ingrese capacidad</label>
-                            <input type="number" name="stock" value="{{habitacion.stock}}" class="txtJStock form-control" id="stock" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingrese la capacidad de personas" required min="1">
+                            <label for="capacidad" class="form-label" style="color: whitesmoke;">Ingrese capacidad</label>
+                            <input type="number" name="capacidad" value="{{habitacion.capacidad}}" class="txtJStock form-control" id="capacidad" style="background-color: #14142b; border-color: #202043; color: white;" placeholder="Ingrese la capacidad de personas" required min="1">
                         </div>
                             <div class="mb-3">
-                              <label for="tipoClave" class="form-label" style="color: whitesmoke;">Tipo de habitación</label>
-                              <select class="txtJPlataforma form-select" name="tipoClave" value="{{habitacion.tipoClave}}" id="tipoClave" style="background-color: #14142b; border-color: #202043; color: white;" required>
+                              <label for="tipoHab" class="form-label" style="color: whitesmoke;">Tipo de habitación</label>
+                              <select class="txtJPlataforma form-select" name="tipoHab" value="{{habitacion.tipoHab}}" id="tipoHab" style="background-color: #14142b; border-color: #202043; color: white;" required>
                                 <option value="">Selecciona un tipo de habitación</option>
-                                {%for tipoClave in tipoClaves%}
-                                {%if habitacion.tipoClave.idTipo == tipoClave.idTipo %}
-                                <option name="idTpoClave" value="{{tipoClave.idTipo}}" selected>{{tipoClave.nombre}}</option>
+                                {%for tipoHab in tipoHabs%}
+                                {%if habitacion.tipoHab.idTipo == tipoHab.idTipo %}
+                                <option name="idTpoClave" value="{{tipoHab.idTipo}}" selected>{{tipoHab.nombre}}</option>
                                 {%else%}
-                                <option name="idTpoClave" value="{{tipoClave.idTipo}}">{{tipoClave.nombre}}</option>
+                                <option name="idTpoClave" value="{{tipoHab.idTipo}}">{{tipoHab.nombre}}</option>
                                 {%endif%}
                                 {%endfor%}
                               </select>

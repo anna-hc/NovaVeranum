@@ -49,10 +49,10 @@ def registroHab(request):
 
 @login_required
 def registroSeries(request):
-    categorias = categoriaSerie.objects.all()
+    disponibilidad = categoriaSerie.objects.all()
 
     context = {
-    'categorias': categorias
+    'disponibilidad': disponibilidad
     }
     return render(request, 'registroSeries.html', context)
 
@@ -86,7 +86,7 @@ def agregarHabCarro(request, idHab):
             'idHab': str(item.idHab),
             'nombre' : item.nombre,
             'precio' : str(item.precio),
-            'stock'  : item.capacidad,
+            'capacidad'  : item.capacidad,
             'imagen' : item.imagen.url if item.imagen else '',
             'cantidad': 1
                 }
@@ -220,7 +220,7 @@ def subirHab(request):
         descripcion   = request.POST['descripcion']
         ytVidId       = 0
         precio        = request.POST['precio']
-        stock         = request.POST['stock']
+        capacidad         = request.POST['capacidad']
 
         # buscar youtube id
         #m =  re.search(r"([\d\w-_]{11})", ytVidId)
@@ -230,14 +230,13 @@ def subirHab(request):
             if idHab == "0":
                  hab = Habitacion.objects.create(
                     nombre = nombre,
-                    servicio = servicio.objects.get(idDev=request.POST['servicio']),
-                    categoria = dispHab.objects.get(idCategoria=request.POST['dispHab']),
+                    servicio = servicio.objects.get(idServ=request.POST['servicio']),
+                    dispHab = dispHab.objects.get(idDisp=request.POST['dispHab']),
                     descripcion = descripcion,
                     imagen = request.FILES['imagen'],
                     ytVidId = None,
                     precio = precio,
-                    stock = stock,
-                    clave = request.FILES['archivo'],
+                    capacidad = capacidad,
                     tipoHab = tipoHab.objects.get(idTipo=request.POST['tipoHab'])
                     )
                  if request.FILES.getlist('captura'):
@@ -250,17 +249,15 @@ def subirHab(request):
             else:
                 habitacion = Habitacion.objects.get(idHab = request.POST['txtId'])
                 habitacion.nombre = nombre
-                habitacion.servicio = servicio.objects.get(idDev=request.POST['servicio'])
-                habitacion.dispHab = dispHab.objects.get(idCategoria=request.POST['dispHab'])
+                habitacion.servicio = servicio.objects.get(idServ=request.POST['servicio'])
+                habitacion.dispHab = dispHab.objects.get(idDisp=request.POST['dispHab'])
                 habitacion.descripcion = descripcion
                 habitacion.ytVidId = ytVidId
                 habitacion.precio = precio
-                habitacion.capacidad = stock
+                habitacion.capacidad = capacidad
                 habitacion.tipoHab = tipoHab.objects.get(idTipo=request.POST['tipoHab'])
                 if 'imagen' in request.FILES:
                     habitacion.imagen = request.FILES['imagen']
-                if 'archivo' in request.FILES:
-                    habitacion.clave = request.FILES['archivo']
                 habitacion.save()
                 if request.FILES.getlist('captura'):
                     capturas = request.FILES.getlist('captura')
@@ -283,7 +280,7 @@ def modificarHab(request, idHab):
     tipoHabs = tipoHab.objects.all()
     capturas = imgHab.objects.filter(idHab=habitacion)
     servicios = servicio.objects.all()
-    categorias = dispHab.objects.all()
+    disponibilidad = dispHab.objects.all()
     urlCapturas = ""
     for i in capturas:
         urlCapturas += i.imagen.url + " "
@@ -291,7 +288,7 @@ def modificarHab(request, idHab):
     'habitacion': habitacion,
     'tipoHabs': tipoHabs,
     'servicios': servicios,
-    'categorias': categorias,
+    'disponibilidad': disponibilidad,
     'capturas' : capturas,
     'urlCapturas' : urlCapturas
     }
@@ -303,10 +300,10 @@ def modificarHab(request, idHab):
 @login_required
 def listadoSeries(request):
     series = Serie.objects.all()
-    categorias = categoriaSerie.objects.all()
+    disponibilidad = categoriaSerie.objects.all()
     context = {
     'series': series,
-    'categorias': categorias 
+    'disponibilidad': disponibilidad 
     }
     return render(request, 'listadoSeries.html', context)
 
@@ -334,7 +331,7 @@ def subirSerie(request):
         estudio         = request.POST['estudio']
         descripcion     = request.POST['descripcion']
         precio          = request.POST['precio']
-        stock           = request.POST['stock']
+        capacidad       = request.POST['capacidad']
         ytVidId         = request.POST['link']
         fechalanz       = request.POST['lanzamiento']
         
@@ -353,10 +350,10 @@ def subirSerie(request):
                     imagen = request.FILES['imagen'],
                     ytVidId = ytVidId,
                     precio = precio,
-                    stock = stock,
+                    capacidad = capacidad,
                     clave = request.FILES['archivo'],
                     fechalanz = fechalanz,
-                    categoria = categoriaSerie.objects.get(idCategoria=request.POST['categoria'])
+                    categoria = categoriaSerie.objects.get(idDisp=request.POST['categoria'])
                     )
                  context['exito'] = "Serie creada con éxito"
             else:
@@ -366,9 +363,9 @@ def subirSerie(request):
                 serie.descripcion = descripcion
                 serie.ytVidId = ytVidId
                 serie.precio = precio
-                serie.stock = stock
+                serie.capacidad = capacidad
                 serie.fechalanz = fechalanz
-                serie.categoria = categoriaSerie.objects.get(idCategoria=request.POST['categoria'])
+                serie.categoria = categoriaSerie.objects.get(idDisp=request.POST['categoria'])
                 if 'imagen' in request.FILES:
                     serie.imagen = request.FILES['imagen']
                 if 'archivo' in request.FILES:
@@ -382,10 +379,10 @@ def subirSerie(request):
 @login_required
 def modificarSerie(request, idSerie):
     serie = Serie.objects.get(idSerie = idSerie)
-    categorias = categoriaSerie.objects.all()
+    disponibilidad = categoriaSerie.objects.all()
     context = {
     'serie': serie,
-    'categorias': categorias,
+    'disponibilidad': disponibilidad,
     }
     return render(request, 'registroSeries.html', context)
 
