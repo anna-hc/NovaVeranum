@@ -2,9 +2,9 @@ $(function(){
 
     $(document).ready(function() {
         $('.desc').each(function(){
-            if ($(this).text().length > 220){
+            if ($(this).text().length > 170){
                 var desc = $(this).text();
-                desc = desc.substring(0,220)
+                desc = desc.substring(0,170)
                 desc = desc.split(" ");
                 desc.pop()
                 desc = desc.join(" ") + " ...";
