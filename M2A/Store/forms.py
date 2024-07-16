@@ -1,12 +1,12 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Juego
+from .models import Habitacion
 
 
-class juegoForm(ModelForm):
+class habForm(ModelForm):
     class Meta:
-        model = Juego
+        model = Habitacion
         fields= "__all__"
 
 class customLoginForm(AuthenticationForm):

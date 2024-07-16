@@ -3,33 +3,32 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Juego(models.Model):
-    idJuego       = models.AutoField(primary_key=True)
+class Habitacion(models.Model):
+    idHab         = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=50)
-    desarrollador = models.ForeignKey('desarrollador', on_delete=models.CASCADE)
-    categoria     = models.ForeignKey('categoriaJuego', on_delete=models.CASCADE)
+    servicio      = models.ForeignKey('servicio', on_delete=models.CASCADE)
+    dispHab          = models.ForeignKey('dispHab', on_delete=models.CASCADE)
     descripcion   = models.CharField(max_length=550)
     imagen        = models.ImageField(upload_to='juegos/imagenes')
     ytVidId       = models.CharField(max_length=11, null=True)
     precio        = models.IntegerField()
-    stock         = models.IntegerField()
-    clave         = models.FileField(upload_to='juegos/archivos_zip/',null= False)
-    tipoClave     = models.ForeignKey('tipoClave', on_delete=models.CASCADE)
+    capacidad     = models.IntegerField()
+    tipoHab       = models.ForeignKey('tipoHab', on_delete=models.CASCADE)
 
-class tipoClave(models.Model):
+class tipoHab(models.Model):
     idTipo        = models.IntegerField(primary_key=True)
     nombre        = models.CharField(max_length=20)
 
-class imgJuegos(models.Model):
+class imgHab(models.Model):
     idImg         = models.AutoField(primary_key=True)
-    idJuego       = models.ForeignKey('Juego', on_delete=models.CASCADE)
+    idHab         = models.ForeignKey('Habitacion', on_delete=models.CASCADE)
     imagen        = models.ImageField(upload_to='juegos/capturas')
 
-class desarrollador(models.Model):
+class servicio(models.Model):
     idDev         = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=50)
 
-class categoriaJuego(models.Model):
+class dispHab(models.Model):
     idCategoria   = models.AutoField(primary_key=True)
     nombre        = models.CharField(max_length=40)
 
@@ -77,5 +76,5 @@ class nivelEducacional(models.Model):
 class Carrito(models.Model):
     idCarro = models.AutoField(primary_key=True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    juegos = models.ManyToManyField('Juego', related_name='carritos', blank=True)
+    reserva = models.ManyToManyField('Habitacion', related_name='carritos', blank=True)
     series = models.ManyToManyField('Serie', related_name='carritos', blank=True)
