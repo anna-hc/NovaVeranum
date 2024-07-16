@@ -170,7 +170,7 @@ def eliminarHabCarro(request, idHab):
         if str(idHab) in carritoSesion:
             if carritoSesion[str(idHab)]['cantidad'] > 1:
                 print("Cantidad superior a uno (llego aquí)")
-                carritoSesion[str(idHab)]['cantidad'] -= 1
+                del carritoSesion[str(idHab)]
                 print("Intento eliminarlo")
             else:
                 # si solo hay uno se elimina.
