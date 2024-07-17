@@ -26,7 +26,7 @@
     {%for reserva in reservas%}
     </tr>
         <td > {{reserva.idReserva}} </td>
-        <td ><a href="{{reserva.idReserva}}"><img src="{{reserva.habitacion.imagen.url}}" alt="No disponible" style="max-width: 100px; max-height: 140px;"></a></td>
+        <td ><a href="{{reserva.habitacion.idHab}}"><img src="{{reserva.habitacion.imagen.url}}" alt="No disponible" style="max-width: 100px; max-height: 140px;"></a></td>
         <td >{{reserva.habitacion.nombre}}</td>
         <td >{{reserva.fecha}}</td>
         <td >{{reserva.dias}}</td>
