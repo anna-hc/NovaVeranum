@@ -33,8 +33,7 @@
                                 <input type="number" name="cantidadDias" value="{{reserva.dias}}" class="cantidadDias form-control" id="cantidadDias" style="background-color: #0A0A0A; border-color: #88bfa0; color: #e6dfd6; margin-right: 10%; width: 35%" required min="1">
                             </div>
                             <div class="mb-3">
-                              <label for="habitacion" class="form-label" style="color: whitesmoke;">Habitación</label>
-                              <select class="txtSHabitacion form-select" value="{{reserva.habitacion}}" name="habitacion" id="habitacion" style="background-color: #0A0A0A; border-color: #88bfa0; color: white;" required>
+                            <select class="txtSHabitacion form-select" value="{{reserva.habitacion}}" name="habitacion" id="habitacion" style="background-color: #0A0A0A; border-color: #88bfa0; color: white;" required>
                                 <option value="">Selecciona una habitación</option>
                                 {%for habitacion in habitaciones%}
                                 {%if reserva.habitacion.idHab == habitacion.idHab %}
@@ -45,6 +44,18 @@
                                 {%endfor%}
                               </select>
                             </div>
+                              <div class="mb-3">
+                              <select class="txtSUsuario form-select" value="{{reserva.idUsuario.idUsuario}}" name="usuario" id="usuario" style="background-color: #0A0A0A; border-color: #88bfa0; color: white;" required>
+                                <option value="">Selecciona un usuario</option>
+                                {%for usuario in usuarios%}
+                                {%if reserva.idUsuario.idUsuario == usuario.idUsuario %}
+                                <option name="idUser" value="{{usuario.idUsuario}}" selected>{{usuario.rut}}</option>
+                                {%else%}
+                                <option name="idUser" value="{{usuario.idUsuario}}">{{usuario.rut}}</option>
+                                {%endif%}
+                                {%endfor%}
+                              </select>
+                                </div>
                           <div class="row pt-3">
                             <div class="col-2 d-flex justify-content-start">
                                 <button type="submit" class="btn-aceptar btn me-auto" style="font-weight: bold;" id="limpiarReserva">Limpiar</button>
