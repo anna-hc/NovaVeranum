@@ -81,8 +81,10 @@ def agregarHabCarro(request, idHab):
         dias = request.POST['cantidadDias']
         print("entré al request post")
         try:
+            print("entré al try")
             reservas = Reserva.objects.filter(habitacion=idHab)
             if reservas:
+                print("entré al if reservas")
                 inicio = datetime.datetime.strptime(str(fecha), "%Y-%m-%d")
                 fin = inicio + datetime.timedelta(days=int(dias))
                 for reserva in reservas:
@@ -99,6 +101,7 @@ def agregarHabCarro(request, idHab):
                 usuario = request.user
                 item = Habitacion.objects.get(idHab = idHab)
                 carritoSesion = request.session.get('carrito', {})
+                print(carritoSesion)
                 carritoSesion[str(idHab)] = {
                 'idHab': str(item.idHab),
                 'nombre' : item.nombre,
