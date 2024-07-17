@@ -51,9 +51,11 @@ def registroHab(request):
 def registroReservas(request):
     reservas = Reserva.objects.all()
     habitaciones = Habitacion.objects.all()
+    usuarios = Usuario.objects.all()
     context = {
     'reservas': reservas,
-    'habitaciones': habitaciones
+    'habitaciones': habitaciones,
+    'usuarios': usuarios
     }
     return render(request, 'registroReservas.html', context)
 
@@ -98,7 +100,7 @@ def agregarHabCarro(request, idHab):
                             return redirect('verHab', idHab=idHab)
                         fecha1=fecha1 + datetime.timedelta(days=1)
             else:
-                usuario = request.user
+                print("entré al else")
                 item = Habitacion.objects.get(idHab = idHab)
                 carritoSesion = request.session.get('carrito', {})
                 print(carritoSesion)
@@ -361,7 +363,7 @@ def subirReserva(request):
                  Reserva.objects.create(
                     fecha = fecha,
                     dias = dias,
-                    idUsuario = Usuario.objects.get(idUsuario=request.user.id),
+                    idUsuario = Usuario.objects.get(idUsuario=request.POST['usuario']),
                     habitacion = Habitacion.objects.get(idHab=request.POST['habitacion'])
                     )
                  context['exito'] = "Reserva creada con éxito"
@@ -369,7 +371,7 @@ def subirReserva(request):
                 reserva = Reserva.objects.get(idReserva = request.POST['txtId'])
                 reserva.fecha = fecha
                 reserva.dias = dias
-                reserva.idUsuario = Usuario.objects.get(idUsuario=request.user.id)
+                reserva.idUsuario = Usuario.objects.get(idUsuario=request.POST['usuario'])
                 reserva.habitacion = Habitacion.objects.get(idHab=request.POST['habitacion'])
                 reserva.save()
                 context['exito'] = "Reserva actualizada con éxito"
@@ -381,9 +383,11 @@ def subirReserva(request):
 def modificarReserva(request, idReserva):
     reserva = Reserva.objects.get(idReserva = idReserva)
     habitaciones = Habitacion.objects.all()
+    usuarios = Usuario.objects.all()
     context = {
     'reserva': reserva,
     'habitaciones': habitaciones,
+    'usuarios': usuarios
     }
     return render(request, 'registroReservas.html', context)
 
