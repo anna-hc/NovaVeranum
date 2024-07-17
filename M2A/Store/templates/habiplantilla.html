@@ -1,76 +1,94 @@
-{% extends "plantilla_base.html"  %}
+{% extends "plantilla_base.html" %}
 {% block titulo %} {{ habitacion.nombre }} en Veranum {% endblock %}
 {% block contenido %}
 
 <div class="container pt-5">
-  {%if messages%}
-        <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
-            {% for message in messages %}
-            {{ message }}
-            {% endfor %}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-  {%endif%}
-    <div class="row mt-5 ">
-      <div class="col-12 col-lg-7 justify-content-center align-items-center d-flex">
-        <img src="{{habitacion.imagen.url}}" alt="" width="800" height="450">
-      </div>
-      <div class="col justify-content-end mt-4">
-        <h4 style="font-size:40px; text-align: center; color: #e6dfd6; font-weight: bold">{{ habitacion.nombre }}</h4>
-        <h4 style="font-size: larger; text-align: center; color: #88bfa0">{{ habitacion.tipoHab.nombre }}</h4>
-        <p style="color: #e6dfd6; padding-top: 25px;">{{ habitacion.descripcion }}</p>
-        <p style="color: #E8BA74">Servicios extra: {{ habitacion.servicio.nombre }}</p>
-        <div class="row align-items-center d-flex">
-          <div class="col-4 ">
-            <p class="pt-1" id="producto" style="text-align: start; margin-bottom: 10px; color: #e6dfd6;">Estado: {{habitacion.dispHab.nombre}}</p>
-          </div>
-          <div class="offset-2 col-6">
-            <p class="pt-1" id="stock" style="text-align: start; margin-bottom: 10px; color: #e6dfd6"> Capacidad para {{ habitacion.capacidad }} personas</p>
-          </div>
-          <div class="col-6 d-flex align-items-center">
-            <div class="spinner-border" role="status" id="spinner-precio" style="color: #88bfa0; width: 25px; height: 25px;">
-              <span class="sr-only"></span>
-            </div>
-            <p type="text" style="color: success; font-size: 25px; color: #88bfa0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacion">${{ habitacion.precio }} CLP</p>
-            <p type="text" style="color: success; font-size: 25px; color: #88bfa0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacionConvertido"></p>
-          </div>
-          <div class="col-6">
-            <p style="font-size: 18px; color: #E8BA74; font-weight: 500; text-align: start; margin-bottom: 5px;">Reserva aquí:</p>
-          </div>
-          <div class="col-6">
-            <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" id="btn_conversion"style="width: 60%;">Convertir a dólares</button>
-          </div>
-          <div class="col-6 d-flex justify-content-start">
-            <form action="{% url 'agregarHabCarro' idHab=habitacion.idHab%}" method="POST">
-              {% csrf_token %}
-              <label for="cantidadDias" style="color:#E8BA74"> Días reserva:</label>
-              <input type="number" name="cantidadDias" value=1 class="cantidadDias form-control form-control-sm" id="cantidadDias" style="background-color: #171717; border-color: #88bfa0; color: #e6dfd6; margin-right: 10%; width: 35%;height:25%;" required min="1">
-              <label for="fechaReserva" style="color:#E8BA74">Fecha de la reserva:</label>
-              <input type="date" class="fechaReserva form-control form-control-sm" id="fechaReserva" name="fechaReserva" style="width: 85%; height: 25%;background-color: #171717; border-color: #88bfa0; color: #e6dfd6;" required>
-              <button class="btn-carro btn btn-primary btn mt-1" role="button" id="btn-carro" style="width: 80px; margin-left: 10%;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                </svg>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> 
-    <h1 class="mt-5" style="color: #88bfa0; text-align: center; font-weight: bold;">Imágenes:</h1>
-
-    <div class="row mt-5">
-      {%for captura in capturas%}
-      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-        <img src="{{ captura.imagen.url }}" 
-        class="img-fluid w-100 shadow-1-strong rounded mb-4 hover-overlay img-clickable" 
-        alt="Captura" 
-        data-fancybox="galeria1">
-      </div> 
-      {%endfor%}
+  {% if messages %}
+  <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endif %}
+  <div class="row mt-5">
+    <div class="col-lg-7">
+      <img src="{{ habitacion.imagen.url }}" alt="" class="img-fluid">
     </div>
-
+    <div class="col-lg-5">
+      <h4 class="text-center mb-3" style="color: #e6dfd6; font-weight: bold; font-size: 2rem;">{{ habitacion.nombre }}</h4>
+      <h4 class="text-center mb-4" style="color: #88bfa0; font-size: 1.5rem;">{{ habitacion.tipoHab.nombre }}</h4>
+      <p class="text-center" style="color: #e6dfd6;">{{ habitacion.descripcion }}</p>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <p style="color: #E8BA74;font-weight: 500;">Servicios extra: {{ habitacion.servicio.nombre }}</p>
+      </div>
+      <div class="col-md-6">
+        <p id="stock" style="text-align: start; margin-bottom: 10px; color: #e6dfd6"> Capacidad para {{ habitacion.capacidad }} personas</p>
+    </div>
+    <div class="col-md-6">
+      <div class="spinner-border text-center" role="status" id="spinner-precio" style="color: #88bfa0; width: 25px; height: 25px;">
+        <span class="sr-only"></span>
+      </div>
+      <p type="text" style="color: success; font-size: 25px; color: #88bfa0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacion">${{ habitacion.precio }} CLP</p>
+      <p type="text" style="color: success; font-size: 25px; color: #88bfa0; position:relative; margin-bottom: 5px; text-align: start;" class="preciohabitacionConvertido"></p>
+  </div>
+  <div class="col-md-6">
+    <p class="" id="producto" style="margin-bottom: 10px; color: #88bfa0;font-weight: 500; font-size:20px">Estado: {{habitacion.dispHab.nombre}}</p>
+</div>
+    
+        <div class="col-12">
+          <p style="font-size: 20px; color: #E8BA74; font-weight: 500; text-align: left; margin-bottom: 3px;">Reserva aquí:</p>
+        </div>
+        <div class="col-12">
+          <form action="{% url 'agregarHabCarro' idHab=habitacion.idHab %}" method="POST">
+            {% csrf_token %}
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <label for="cantidadDias" class="form-label" style="color: #E8BA74;">Días reserva:</label>
+                <input type="number" name="cantidadDias" value="1" class="cantidadDias form-control" id="cantidadDias" style="background-color: #171717; border-color: #88bfa0; color: #e6dfd6;" required min="1">
+              </div>
+              <div class="col-md-6">
+                <label for="fechaReserva" class="form-label" style="color: #E8BA74;">Fecha de la reserva:</label>
+                <input type="date" class="fechaReserva form-control" id="fechaReserva" name="fechaReserva" style="background-color: #171717; border-color: #88bfa0; color: #e6dfd6;" required>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                <button class="btn btn-primary btn-block" id="btn-carro" style="width: 100px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+              <div class="col-6">
+                <button type="button" class="btnConversion btn btn-primary btn-sm mt-1" id="btn_conversion"style="width: 60%; background-color: #E8BA74; border:no border;">Convertir a dólares</button>
+              </div>
+              
+            </div>
+          
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-12">
+      
+        </div>
       </div>
     </div>
   </div>
+
+  <h1 class="mt-5" style="color: #88bfa0; text-align: center; font-weight: bold;">Imágenes:</h1>
+
+  <div class="row mt-5">
+    {% for captura in capturas %}
+    <div class="col-lg-4 col-md-12 mb-4">
+      <img src="{{ captura.imagen.url }}" class="img-fluid rounded mb-4 hover-overlay img-clickable" alt="Captura" data-fancybox="galeria1">
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
 {% endblock %}
