@@ -11,7 +11,7 @@
         <div class="row">
           <div class="col-lg-8">
             <h2 style="color: #E8BA74; font-weight: bold">Carrito de Compras</h2>
-  {% comment %} {% if user.is_authenticated %} {% endcomment %}
+  {% if user.is_authenticated %}
             <table class="table" id="carro">
               <thead>
                 <tr>
@@ -68,19 +68,19 @@
               </div>
             </div>
           </div>
-  {% comment %} {% else %}
+{% else %}
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title" style="color: #b0bdf8; font-weight:bold">Inicie sesión o registrese</h5>
-            <h5 class="card-title" style="color: #b0bdf8;">Debe tener una cuenta para agregar productos al carro</h5>
+            <h5 class="card-title" style="color: #88BFA0; font-weight:bold">Inicie sesión o registrese</h5>
+            <h5 class="card-title" style="color: #e6dfd6;">Debe tener una cuenta para agregar productos al carro</h5>
             <a href="{% url 'login' %}">
-              <button class="btn btn-primary btn-block mt-3" style="background-color: #11ced0;">Ir al login</button>
+              <button class="btn btn-primary btn-block mt-3" style="background-color: #E2A850; color: 0a0a0a; border:none;">Ir al login</button>
             </a>
           </div>
         </div>
       </div>
-  {% endif %} {% endcomment %}
+  {% endif %}
         </div>
       </div>
       <div class="container-fluid d-flex flex-column min-vh-100" style="padding: 0;">

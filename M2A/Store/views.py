@@ -76,6 +76,7 @@ def plantilla(request):
     return render(request, 'plantilla_base.html', {})
 
 
+@login_required
 def agregarHabCarro(request, idHab):
     context = {}
     if request.method == 'POST':
