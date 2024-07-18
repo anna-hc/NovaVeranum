@@ -47,20 +47,17 @@
     {% csrf_token %}
     </form>
         <a href="#" class="ms-auto d-none d-lg-block" onclick="document.getElementById('logout-form').submit();" style="text-decoration: none; color: #88BFA0; padding-right: 7px;">Cerrar Sesión</a>
-            <a href="{% url 'logout' %}">
               <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor" class="bi bi-person-circle d-none d-lg-block" viewBox="0 0 16 16" style="color: #88BFA0;">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
               </svg>
-            </a>
+
   {% else %}
             <a href="{% url 'login' %}" id="logintext" class="ms-auto d-none d-lg-block" style="text-decoration: none; color: #e6dfd6; padding-right: 7px;">Iniciar Sesión</a>
-            <a href="{% url 'login' %}">
               <svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" fill="currentColor" class="bi bi-person-circle d-none d-lg-block" viewBox="0 0 16 16" style="color: #e6dfd6;">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
               </svg>
-            </a>
   {% endif %}         
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
