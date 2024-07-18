@@ -1,0 +1,4 @@
+Django==5.0.6
+transbank_sdk==5.0.0
+urllib3==2.2.2
+pillow==10.3.0
